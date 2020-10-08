@@ -1,0 +1,316 @@
+<div class="container-fluid">
+  <div class="row parent-container">
+
+    <div class="col-md-3 left-filter-menus">
+      <ul class="tab-menu-container">
+        <li class="tab-menu" (click)="selectLeftTab('gender')" [ngClass]="{'active': selectedLeftTab == 'gender', 'filter-added': taskService.filters?.genders?.length}">
+          Gender</li>
+        <li class="tab-menu" (click)="selectLeftTab('location')" [ngClass]="{'active': selectedLeftTab == 'location', 'filter-added': taskService.filters.areaLevel || taskService.filters.districts?.length}">
+          Location of Service</li>
+        <li class="tab-menu" (click)="selectLeftTab('qualification')" [ngClass]="{'active': selectedLeftTab == 'qualification', 'filter-added': taskService.filters?.qualifications?.length || taskService.filters.professions?.length || taskService.filters.vocationals?.length}">Educational Qualification</li>
+        <li class="tab-menu" (click)="selectLeftTab('availability')" [ngClass]="{'active': selectedLeftTab == 'availability', 'filter-added': taskService.filters?.availability?.length}">Availability</li>
+        <li class="tab-menu" (click)="selectLeftTab('serviceType')" [ngClass]="{'active': selectedLeftTab == 'serviceType', 
+          'filter-added': taskService.filters.awareness?.length || taskService.filters.fieldSupport?.length || taskService.filters.essentials?.length || taskService.filters.health?.length || taskService.filters.reliefCampMgmt?.length}">Type of Service</li>
+          <li class="tab-menu" (click)="selectLeftTab('timeperiod')"
+          [ngClass]="{'active': selectedLeftTab == 'timeperiod', 'filter-added': taskService.filters?.fromDate || taskService.filters?.toDate}">Time Period</li>
+        <li class="tab-menu" (click)="selectLeftTab('taskStatus')"
+          [ngClass]="{'active': selectedLeftTab == 'taskStatus', 'filter-added': taskService.filters?.isTaskAssigned != undefined}">Task Status</li>
+      </ul>
+      <button class="btn btn-default filter-submit" type="submit" (click)="ApplyFilter()"> Submit </button>
+      <button class="btn btn-default filter-submit" type="submit" (click)="resetAll()">Reset</button>
+    </div>
+    <div class="col-md-9 right-filter-questions">
+      <section class="filter-container row" *ngIf="selectedLeftTab == 'gender'">
+        <div class="col-md-6">
+          <label for="usr" class="label-heads">Gender :</label>
+          <mat-form-field>
+            <mat-select [(ngModel)]="taskService.filters.genders" multiple>
+              <mat-option *ngFor="let opt of allOptions.Gender" [value]="opt.slugId">
+                {{opt.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </section>
+      <section class="filter-container row" *ngIf="selectedLeftTab == 'location'">
+        <div class="selection-fields col-md-12">
+          <div class="sub-questions row">
+            <div class="subq col-md-6">
+              <label for="usr">Area Level :</label>
+              <mat-form-field>
+                <mat-select [(ngModel)]="taskService.filters.areaLevel" (selectionChange)="areaChange();">
+                  <mat-option *ngFor="let opt of areaLevels" [value]="opt.areaLevelId">
+                    {{opt.areaLevelName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="subq col-md-6">
+              <label for="usr">District :</label>
+              <mat-form-field>
+                <mat-select [disabled]="!taskService.filters.areaLevel"
+                 (selectionChange)="taskService.filters.districts?getPreferredBlocks(4, taskService.filters.districts):''"
+                 [(ngModel)]="taskService.filters.districts"
+                  *ngIf="taskService.filters?.areaLevel != 1" required>
+                  <mat-option *ngFor="let opt of taskService.allPreferredDistricts | sortBy : 'areaName'" [value]="opt.areaId">
+                    {{opt.areaName}}</mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="taskService.filters.districts" *ngIf="taskService.filters?.areaLevel == 1" required multiple>
+                  <mat-select-trigger>
+                    {{taskService.filters.districts && taskService.filters.districts.length ? getObjectByKey('areaId', taskService.filters.districts[0],
+                    taskService.allPreferredDistricts).areaName : ''}}
+                    <span *ngIf="taskService.filters.districts?.length > 1">
+                      (+{{taskService.filters.districts?.length - 1}} {{taskService.filters.districts ?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let opt of taskService.allPreferredDistricts | sortBy : 'areaName'" [value]="opt.areaId">
+                    {{opt.areaName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="subq col-md-6" [ngClass]="{'dnone':!(taskService.filters?.areaLevel != 1)}">
+              <label for="usr">Block/City :</label>
+              <mat-form-field>
+                <mat-select [disabled]="!taskService.filters.areaLevel"
+                  (selectionChange)="taskService.filters.blocks ? getPreferredGP(5, taskService.filters.blocks): ''"
+                  [(ngModel)]="taskService.filters.blocks"
+                  *ngIf="taskService.filters?.areaLevel != 2">
+                  <mat-option *ngFor="let opt of taskService.allPreferredBlocks | sortBy : 'areaName'" [value]="opt.areaId">
+                    {{opt.areaName}}</mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="taskService.filters.blocks" *ngIf="taskService.filters?.areaLevel == 2" multiple>
+                  <mat-select-trigger>
+                    {{taskService.filters.blocks && taskService.filters.blocks.length ? getObjectByKey('areaId', taskService.filters.blocks[0],
+                    taskService.allPreferredBlocks).areaName : ''}}
+                    <span *ngIf="taskService.filters.blocks?.length > 1">
+                      (+{{taskService.filters.blocks?.length - 1}} {{taskService.filters.blocks ?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let opt of taskService.allPreferredBlocks | sortBy : 'areaName'" [value]="opt.areaId">
+                    {{opt.areaName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="subq col-md-6" [ngClass]="{'dnone': !(taskService.filters?.areaLevel != 2 && taskService.filters?.areaLevel != 1)}">
+              <label for="usr">Gram Panchayat :</label>
+              <mat-form-field>
+                <mat-select [(ngModel)]="taskService.filters.gps" [disabled]="!taskService.filters.areaLevel" multiple>
+                  <mat-select-trigger>
+                    {{taskService.filters.gps && taskService.filters.gps.length ? getObjectByKey('areaId', taskService.filters.gps[0], taskService.allPreferredGP).areaName
+                    : ''}}
+                    <span *ngIf="taskService.filters.gps?.length > 1">
+                      (+{{taskService.filters.gps?.length - 1}} {{taskService.filters.gps ?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let opt of taskService.allPreferredGP | sortBy : 'areaName'" [value]="opt.areaId">
+                    {{opt.areaName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- {{allOptions['Educational Qualification'] |json}} -->
+      <section class="filter-container row" *ngIf="selectedLeftTab == 'qualification'">
+          <div class="selection-fields col-md-6">
+            <label for="usr" class="label-heads">Educational Qualification :</label>
+            <mat-form-field>
+              <mat-select [(ngModel)]="taskService.filters.qualifications" multiple>
+              <mat-select-trigger>
+                {{taskService.filters.qualifications && taskService.filters.qualifications.length ? getObjectByKey('slugId', taskService.filters.qualifications[0], allOptions['Educational Qualification']).name : ''}}
+                <span *ngIf="taskService.filters.qualifications?.length > 1" >
+                  (+{{taskService.filters.qualifications?.length - 1}} {{taskService.filters.qualifications ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+                <mat-option *ngFor="let opt of allOptions['Educational Qualification']" [value]="opt.slugId">
+                  {{opt.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="selection-fields col-md-6">
+            <label for="usr">Professionals :</label>
+            <mat-form-field>
+              <mat-select [(ngModel)]="taskService.filters.professions" multiple>
+                <mat-select-trigger>
+                  {{taskService.filters.professions && taskService.filters.professions.length ? getObjectByKey('slugId', taskService.filters.professions[0], allOptions.Professional).name : ''}}
+                  <span *ngIf="taskService.filters.professions?.length > 1" >
+                    (+{{taskService.filters.professions?.length - 1}} {{taskService.filters.professions ?.length === 2 ? 'other' : 'others'}})
+                  </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let opt of allOptions.Professional" [value]="opt.slugId">
+                  {{opt.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="selection-fields col-md-6">
+            <label for="usr">Vocationals :</label>
+            <mat-form-field>
+              <mat-select [(ngModel)]="taskService.filters.vocationals" multiple>
+                <mat-select-trigger>
+                  {{taskService.filters.vocationals && taskService.filters.vocationals.length ? getObjectByKey('slugId', taskService.filters.vocationals[0], allOptions.Vocational).name : ''}}
+                  <span *ngIf="taskService.filters.vocationals?.length > 1" >
+                    (+{{taskService.filters.vocationals?.length - 1}} {{taskService.filters.vocationals ?.length === 2 ? 'other' : 'others'}})
+                  </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let opt of allOptions.Vocational" [value]="opt.slugId">
+                  {{opt.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- <div class="selection-fields col-md-6">
+            <label for="usr">Health Care Profession :</label>
+            <mat-form-field>
+              <mat-select [(ngModel)]="filters.healthCareProfessionals" multiple>
+                <mat-select-trigger>
+                  {{filters.healthCareProfessionals && filters.healthCareProfessionals.length ? getObjectByKey('slugId', filters.healthCareProfessionals[0], allOptions['Health Care Professionals']).name : ''}}
+                  <span *ngIf="filters.healthCareProfessionals?.length > 1" >
+                    (+{{filters.healthCareProfessionals?.length - 1}} {{filters.healthCareProfessionals ?.length === 2 ? 'other' : 'others'}})
+                  </span>
+                </mat-select-trigger>
+                <mat-option *ngFor="let opt of allOptions['Health Care Professionals']" [value]="opt.slugId">
+                  {{opt.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div> -->
+        </section>
+      <section class="filter-container row" *ngIf="selectedLeftTab == 'availability'">
+          <div class="col-md-6">
+            <label for="usr" class="label-heads">Availability :</label>
+            <mat-form-field>
+              <mat-select [(ngModel)]="taskService.filters.availability" multiple>
+                <mat-option *ngFor="let opt of allOptions.Availability" [value]="opt.slugId">
+                  {{opt.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </section>
+      <section class="filter-container row" *ngIf="selectedLeftTab == 'serviceType'">
+        <!-- <div class="col-md-6">
+          <label for="usr" class="label-heads">Type Of Service :</label>
+          <mat-form-field>
+            <mat-select [(ngModel)]="selectedServiceCategories" multiple>
+              <mat-option *ngFor="let opt of allOptions.serviceTypes" [value]="opt.slugId">
+                {{opt.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+        <div class="subq col-md-6">
+          <label for="usr">Public awareness and Information</label>
+          <mat-form-field>
+            <mat-select multiple [(ngModel)]="taskService.filters.awareness">
+              <mat-select-trigger>
+                {{taskService.filters.awareness && taskService.filters.awareness.length ? getObjectByKey('slugId', taskService.filters.awareness[0],
+                allOptions['Public Awareness and Information']).name : ''}}
+                <span *ngIf="taskService.filters.awareness?.length > 1">
+                  (+{{taskService.filters.awareness?.length - 1}} {{taskService.filters.awareness ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let category of allOptions['Public Awareness and Information']" [value]="category.slugId">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">On-field support</label>
+          <mat-form-field>
+            <mat-select multiple [(ngModel)]="taskService.filters.fieldSupport">
+              <mat-select-trigger>
+                {{taskService.filters.fieldSupport && taskService.filters.fieldSupport.length ? getObjectByKey('slugId', taskService.filters.fieldSupport[0],
+                allOptions['On-field support']).name : ''}}
+                <span *ngIf="taskService.filters.fieldSupport?.length > 1">
+                  (+{{taskService.filters.fieldSupport?.length - 1}} {{taskService.filters.fieldSupport ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let category of allOptions['On-field support']" [value]="category.slugId">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">Essential services</label>
+          <mat-form-field>
+            <mat-select multiple [(ngModel)]="taskService.filters.essentials">
+              <mat-select-trigger>
+                {{taskService.filters.essentials && taskService.filters.essentials.length ? getObjectByKey('slugId', taskService.filters.essentials[0],
+                allOptions['Essential services']).name : ''}}
+                <span *ngIf="taskService.filters.essentials?.length > 1">
+                  (+{{taskService.filters.essentials?.length - 1}} {{taskService.filters.essentials ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let category of allOptions['Essential services']" [value]="category.slugId">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">Health</label>
+          <mat-form-field>
+            <mat-select multiple [(ngModel)]="taskService.filters.health">
+              <mat-select-trigger>
+                {{taskService.filters.health && taskService.filters.health.length ? getObjectByKey('slugId', taskService.filters.health[0],
+                allOptions['Health']).name : ''}}
+                <span *ngIf="taskService.filters.health?.length > 1">
+                  (+{{taskService.filters.health?.length - 1}} {{taskService.filters.health ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let category of allOptions['Health']" [value]="category.slugId">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">Relief Camp Management</label>
+          <mat-form-field>
+            <mat-select multiple [(ngModel)]="taskService.filters.reliefCampMgmt">
+              <mat-select-trigger>
+                {{taskService.filters.reliefCampMgmt && taskService.filters.reliefCampMgmt.length ? getObjectByKey('slugId', taskService.filters.reliefCampMgmt[0],
+                allOptions['Relief Camp Management']).name : ''}}
+                <span *ngIf="taskService.filters.reliefCampMgmt?.length > 1">
+                  (+{{taskService.filters.reliefCampMgmt?.length - 1}} {{taskService.filters.reliefCampMgmt ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let category of allOptions['Relief Camp Management']" [value]="category.slugId">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+
+      </section>
+      <section class="filter-container row" *ngIf="selectedLeftTab == 'timeperiod'">
+        <div class="col-md-6">
+          <label for="usr">From Date :</label>
+          <mat-form-field>
+            <input matInput readonly [matDatepicker]="picker1" name="fromDate" [min]="minDate" [max]="taskService.filters.toDate || todayDate"
+              [(ngModel)]="taskService.filters.fromDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <label for="usr">To Date :</label>
+          <mat-form-field>
+            <input matInput readonly [matDatepicker]="picker2" name="toDate" [min]="taskService.filters.fromDate || minDate" [max]="todayDate"
+              [(ngModel)]="taskService.filters.toDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+        
+      </section>
+      <section class="filter-container row" *ngIf="selectedLeftTab == 'taskStatus'">
+        <div class="subq col-md-12">
+          <label for="usr" class="radio-label label-heads">Already task assigned? </label>
+        <mat-radio-group [(ngModel)]="taskService.filters.isTaskAssigned">
+          <mat-radio-button *ngFor="let opt of isTaskAssignedOptions" [value]="opt.value" class="pr-2">
+            {{opt.label}}
+          </mat-radio-button>
+        </mat-radio-group>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

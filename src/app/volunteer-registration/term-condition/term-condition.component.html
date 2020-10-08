@@ -1,0 +1,212 @@
+<h2 mat-dialog-title class="success">{{app.langSelection == 1 ? 'Terms and Conditions' : 'ନିୟମ ଓ ସର୍ତ୍ତାବଳି'}}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="message-box">
+    <h5 style="border-bottom: 1px solid #CCC;" class="term-heading">{{app.langSelection == 1 ? 'DOs FOR VOLUNTEERS ENGAGED IN HEALTH-RELATED SERVICES' : 'ସ୍ୱାସ୍ଥ୍ୟ ସମ୍ପର୍କିତ କାର୍ଯ୍ୟ ରେ ନିୟୋଜିତ କୋଭିଡ ସଂଗ୍ରାମୀ ମାନେ କଣ  କରିବେ'}}</h5>
+    <ul class="term-list">
+      <li *ngIf="app.langSelection == 1">1. A volunteer should first ensure that he/she is using the personal protective equipment like face mask while dealing
+        with the people who might be at risk of having the virus due to their travel history, contact with corona positive
+        patients etc. </li>
+      <li *ngIf="app.langSelection == 2">
+        ୧. କୋଭିଡ ସଂଗ୍ରାମୀ ମାନେ ଯଦି କରୋନା ସଂକ୍ରମଣ ସମ୍ଭାବିତ ମାନଙ୍କ ସହ ମିଳାମିଶା କରୁଛନ୍ତି ତେବେ ସେତେବେଳେ ନିଜ ନିଜର ବ୍ୟକ୍ତିଗତ ସୁରକ୍ଷା ସାମଗ୍ରୀ ଯଥା ମୁଖାର  ବ୍ୟବହାର କରିବେ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">2. While using the mask it should be put on properly. The volunteer should not touch the mask while it is on. While removing
+        the mask the strings only need to be touched without touching the front portion of mask.</li>
+      <li *ngIf="app.langSelection == 2">
+          ୨. ମୁଖା କୁ ସଠିକ ଭାବେ ପିନ୍ଧିବେ ଓ ପିନ୍ଧିଥିବା ମୁଖାକୁ ସ୍ପର୍ଶ କରିବେ ନାହିଁ | ମୁଖା କୁ ମୁହଁରୁ କାଢିଲା ବେଳେ କଡରେ ଲାଗିଥିବା ଡୋରି କୁ ଧରି କାଢିବେ ଓ କୌଣସି ଅବସ୍ଥାରେ ମୁଖାର ଅନ୍ୟ ଭାଗ କୁ ସ୍ପର୍ଶ କରିବେ ନାହିଁ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">3. If the volunteer is using the disposable mask, then he/she need to ensure that it should be used for 6 hours only.
+        Then it should be dipped in 5% bleaching solution for an hour followed by which it should be burnt or buried. </li>
+      <li *ngIf="app.langSelection == 2">
+          ୩. କୋଭିଡ ସଂଗ୍ରାମୀ ମାନେ ଯଦି ଥରେମାତ୍ର ବ୍ୟବହାର ଯୋଗ୍ୟ ମୁଖା ପିନ୍ଧୁଥାନ୍ତି ତାହେଲେ ଏହା ଅତିବେଶୀରେ ୬  ଘଣ୍ଟା ବ୍ୟବହୃତ ହେବା ଉଚିତ ଏବଂ ବ୍ୟବହାର କରିବା ପରେ   ମୁଖା  କୁ ୫% ବ୍ଲିଚିଙ୍ଗ ପାଣି ରେ ଏକ ଘଣ୍ଟା ଭିଜାଇ ପୋତି କିମ୍ବା  ପୋଡି ଦିଅନ୍ତୁ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">4. If it is a reusable mask, then the volunteers should wash it with detergent and dry it in Sun for 5 hours at least
+        before using again.</li>
+      <li *ngIf="app.langSelection == 2">
+      ୪. ମୁଖା ଯଦି ପୁନଃ ବ୍ୟବହାରକ୍ଷମ ହୋଇ ଥାଏ ତାହେଲେ ସଂଗ୍ରାମୀ ଏହାକୁ ସାବୁନ କିମ୍ବା ଡେଟରଜେଣ୍ଟ ରେ ଭଲଭାବେ  ସଫା କରି ଖରାରେ ଅତି କମରେ ୫ ଘଣ୍ଟା ଶୁଖାଇ ପିନ୍ଧିବେ |
+      </li>        
+
+      <li *ngIf="app.langSelection == 1">5. All the tasks to be performed by a volunteer in a quarantine centre or an isolation unit must be according to the request
+        put forth by the doctor, staff nurse or any other paramedical staff like an ANM or LT.</li>
+      <li *ngIf="app.langSelection == 2">
+        ୫.  ଡାକ୍ତର, ନର୍ସ, କିମ୍ବା କୌଣସି ସ୍ୱାସ୍ଥ୍ୟ କର୍ମୀ ମାନଙ୍କ ଦ୍ୱାରା ଅନୁମୋଦିତ ହୋଇଥିଲେ ହିଁ ସଂଗ୍ରାମୀମାନେ ସଙ୍ଗରୋଧ କେନ୍ଦ୍ର କିମ୍ବା ଏକାନ୍ତରେ ଥିବା ସମ୍ଭାବିତ ଆକ୍ରାନ୍ତ ମାନଙ୍କ ନିମନ୍ତେ କାର୍ଯ୍ୟ କରିବେ |
+      </li>        
+
+      <li *ngIf="app.langSelection == 1">6. After coming back from duty from isolation unit, quarantine centre the volunteer needs to wash hands thoroughly following
+        the hand washing guidelines for about 20 seconds. Then the volunteer need to either keep the clothes used separately
+        in a bag along with the wallet, mobile etc so that these can be used on the next day or sanitize the wallet, helmet,
+        mobile etc using alcohol based sanitizer. The clothes used can be washed using detergent before putting them on again.</li>
+      <li *ngIf="app.langSelection == 2">
+        ୬. ସଙ୍ଗରୋଧ କେନ୍ଦ୍ର କିମ୍ବା ଏକାନ୍ତରେ ଥିବା  ସମ୍ଭାବିତ ଆକ୍ରାନ୍ତ ମାନଙ୍କ ସଂସ୍ପର୍ଶ ରେ ଆସିଥିବା ସଂଗ୍ରାମୀ ମାନେ କାମପରେ ସାବୁନ ରେ ହାତ ଧୁଆ ନିର୍ଦେଶାବଳୀ  ଅନୁସାରେ ଭଲଭାବେ ଅତିକମ ରେ ୨୦ ସେକେଣ୍ଡ ଯାଏ ହାତ ଧୋଇବେ | ଏହା ପରେ ନିଜର ଲୁଗା ପଟା, ମୋବାଇଲ, ପର୍ସ ଓ ଅନ୍ୟାନ୍ୟ ସାମଗ୍ରୀ ଗୋଟେ ବ୍ୟାଗ ରେ ଅଲଗା ରଖିବେ ଓ ପରଦିନ ବ୍ୟବହାର କରିବେ  ନଚେତ ମୋବାଇଲ , ପର୍ସ ଓ ଅନ୍ୟାନ୍ୟ ସାମଗ୍ରୀ କୁ ଆଲକୋହଲ  ଥିବା ସାନିଟାଇଜର ରେ ପୋଛି ରଖିବେ ଓ ଲୁଗାପଟା କୁ ସାବୁନ   କିମ୍ବା ଡେଟରଜେଣ୍ଟ ରେ ଭଲଭାବେ ସଫାକରି ପୁନର୍ବ୍ୟବହାର କରିବେ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">7. A volunteer who is working with the persons who are in quarantine or is visiting a hospital where quarantined patients
+        are being kept in isolation wards, then he/she should always look for the symptoms like high fever, shortness of
+        breath and dry cough in him/her. If he/she suspects of any of the 3 symptoms developing in him/her, he/she should
+        immediately report it to the nearest doctor or on 104 telephone number and get him/her checked.</li>
+      <li *ngIf="app.langSelection == 2">
+        ୭. ସଙ୍ଗରୋଧ କେନ୍ଦ୍ର କିମ୍ବା ଏକାନ୍ତରେ ଥିବା  ସମ୍ଭାବିତ ଆକ୍ରାନ୍ତ ମାନଙ୍କ ସଂସ୍ପର୍ଶ ରେ ଆସିଥିବା କିମ୍ବା   ସଙ୍ଗରୋଧ ପାଇଁ  କାର୍ଯ୍ୟ କରୁଥିବା କୌଣସି  ଡାକ୍ତରଖାନାରେ ଥିବା ରୋଗୀମାନଙ୍କ ସଂସ୍ପର୍ଶରେ ଆସିଥିବା  ସଂଗ୍ରାମୀ ମାନେ ନିଜ ଦେହରେ ଅତ୍ୟଧିକ ଜ୍ୱର, ନିଶ୍ୱାସ ନେବାରେ ଅସୁବିଧା ଓ ଶୁଖିଲା କାଶ ଆଦି ଲକ୍ଷଣ ମାନ ପ୍ରତି ସତର୍କ ରହିବେ, ଯଦି ଏହି ତିନି ଲକ୍ଷଣ ମଧ୍ୟରୁ କୌଣସି ଟି ବି ପରିଲକ୍ଷିତ ହୁଏ ତେବେ ତୁରନ୍ତ ନିକଟସ୍ଥ ଡାକ୍ତରଙ୍କ ସହ ପରାମର୍ଶ କରନ୍ତୁ କିମ୍ବା ୧୦୪ ଦୂରଭାଷ ନମ୍ବର ରେ ସମ୍ପର୍କ କରନ୍ତୁ |
+      </li>
+        
+      <li *ngIf="app.langSelection == 1">8. While generating awareness among the public in a village, urban area, slum etc the volunteer should exactly follow
+      the language and contents given in the IEC material published by the government.</li>
+      <li *ngIf="app.langSelection == 2">
+          ୮.  ଗାଁ, ସହର କିମ୍ବା ବସ୍ତି ଅଂଚଳ ରେ କୋଭିଡ ସମ୍ପର୍କିତ ସଚେତନତା କରିବା ସମୟରେ ସଂଗ୍ରାମୀ ମାନେ ସରକାର  ପ୍ରକାଶ କରିଥିବା ସଚେତନତାର ବାର୍ତା କୁ ହିଁ ଅକ୍ଷରେ ଅକ୍ଷରେ  ବ୍ୟବହାର କରିବେ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">9. The volunteer should remain calm and patient while dealing with the persons who remain in quarantine. As there is a
+        possibility that they may turn violent or become rude due their confinement, so maximum restraint needs to be shown
+        by a volunteer while dealing with them.</li>
+      <li *ngIf="app.langSelection == 2">
+          ୯. ସଂଗ୍ରାମୀ ମାନେ ସଙ୍ଗରୋଧ ରେ ଥିବା  ଲୋକମାନଙ୍କ ସାଙ୍ଗରେ ସମ୍ପୂର୍ଣ୍ଣ  ସହନଶୀଳତା ସହିତ ନମ୍ରଭାବେ ବ୍ୟବହାର କରିବେ | କାରଣ ସଙ୍ଗରୋଧ ରେ ଥିବା ଲୋକେ ଆବଦ୍ଧ    ଅବସ୍ଥା ଯୋଗୁ କେବେକେବେ ଉଗ୍ର ଏବଂ ହିଂସ୍ର  ହୋଇ ଯିବାର    ସମ୍ଭାବନା ଥାଏ | ତେଣୁ ସଂଗ୍ରାମୀ ମାନେ ଅତ୍ୟଧିକ ସଂଯମୀ  ହେବା ଉଚିତ |
+      </li>        
+    </ul>
+
+    <h5 style="border-bottom: 1px solid #CCC;" class="term-heading">{{app.langSelection == 1 ? 'DO NOTs FOR A VOLUNTEER WHO ARE ENGAGED IN HEALTH-RELATED SERVICES' :     'ସ୍ୱାସ୍ଥ୍ୟ ସମ୍ପର୍କିତ କାର୍ଯ୍ୟ ରେ ନିୟୋଜିତ କୋଭିଡ ସଂଗ୍ରାମୀ ମାନେ କଣ କରିବେ ନାହିଁ' }}</h5>
+    <ul class="term-list">
+      <li *ngIf="app.langSelection == 1">1. The volunteer should never move into a quarantine facility or a hospital with patients who have been put under observation
+        due to Corona like symptoms before getting tested, without personal protective equipment like a mask.</li>
+      <li *ngIf="app.langSelection == 2">
+          ୧. ସଂଗ୍ରାମୀମାନେ ନିଜର ବ୍ୟକ୍ତିଗତ ସୁରକ୍ଷା  ସାମଗ୍ରୀ ର ବ୍ୟବହାର ବିନା କରୋନା ସମ୍ଭାବିତ ରୋଗୀମାନେ  ଥିବା କୌଣସି ସଙ୍ଗରୋଧ କେନ୍ଦ୍ର କିମ୍ବା ଡାକ୍ତରଖାନାକୁ  ଯିବେନାହିଁ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">2. A volunteer should never come close within a distance of 6 feet of the person who is in quarantine. A person who is
+        in quarantine may be a potential Corona positive case till confirmation. So, if the volunteer is conducting a counseling
+        session for the person or has come to the person to answer any of his/her queries or issues, then the volunteer should
+        never go close to the person.</li>
+      <li *ngIf="app.langSelection == 2">
+      ୨. ସଂଗ୍ରାମୀମାନେ ସଙ୍ଗରୋଧ ରେ ଥିବା ବ୍ୟକ୍ତିବିଶେଷ ମାନଙ୍କ ଠାରୁ ଅତି କମରେ ୬ ଫୁଟ ବ୍ୟବଧାନ ରଖିବେ. ସଙ୍ଗରୋଧ ରେ ଥିବା ବ୍ୟକ୍ତିବିଶେଷ କରୋନା ଭୁତାଣୁ ର ବାହକ   ହୋଇପାରନ୍ତି, ତେଣୁ ସଂଗ୍ରାମୀମାନେ ପରାମର୍ଶ ଦେବା ସମୟରେ ଆବଶ୍ୟକ ଦୂରତା ରକ୍ଷାକରିବା ଉଚିତ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">3. A Volunteer should never take any steps of his own which has got consequences on the health and wellbeing of the person
+        quarantined. He/she should only do those activities that have been asked by the doctor, staff nurse who oversee the
+        quarantine facility.</li>
+      <li *ngIf="app.langSelection == 2">
+        ୩. କୌଣସି ପରିପ୍ରେକ୍ଷୀ ରେ ସଂଗ୍ରାମୀ ନିଜେ ଏପରି କିଛି ପଦକ୍ଷେପ ନେବା ଉଚିତ ନୁହେଁ ଯାହା ସଙ୍ଗରୋଧରେ ଥିବା ବ୍ୟକ୍ତିବିଶେଷ ମାନଙ୍କ ସ୍ୱାସ୍ଥ୍ୟକ୍ଷେତ୍ର ରେ ସମସ୍ୟା  ସୃଷ୍ଟି କରିବ | ସଂଗ୍ରାମୀ ମାନେ କେବଳ ଡାକ୍ତର, ସ୍ୱାସ୍ଥ୍ୟ କର୍ମୀ କିମ୍ବା ଅନ୍ୟ କୌଣସି ସ୍ୱୀକୃତି ପ୍ରାପ୍ତ ସ୍ୱାସ୍ଥ୍ୟ ଅଧିକାରୀ ମାନଙ୍କ ଦ୍ୱାରା ପ୍ରଦତ୍ତ କାର୍ଯ୍ୟ ହିଁ କରିବେ |
+      </li>        
+
+      <li *ngIf="app.langSelection == 1">4. The volunteer should never delay in conveying the problems and issues of the persons who have been quarantined to the
+        medical authorities who oversee the facility. A sense of urgency needs to be shown in communicating the problems
+        of quarantined person which may need immediate attention. For example, if a person is going out of the isolation
+        centre despite being quarantined, if a person who earlier was not showing any symptoms is suddenly complaining of
+        shortness of breath or dry cough etc. need to be communicated immediately to doctor. </li>
+      <li *ngIf="app.langSelection == 2">
+    ୪. ସଂଗ୍ରାମୀମାନେ ସଙ୍ଗରୋଧ କେନ୍ଦ୍ରରେ ଥିବା ବ୍ୟକ୍ତିବିଶେଷ ମାନଙ୍କ ଅସୁବିଧା ବିଷୟରେ ତୁରନ୍ତ କେନ୍ଦ୍ର ଦାୟିତ୍ୱରେ ଥିବା ଅଧିକାରୀଙ୍କୁ ଜଣାଇବେ | ସଙ୍ଗରୋଧରେ ଥିବା    ବ୍ୟକ୍ତିଙ୍କ ସମସ୍ୟା ବିଷୟରେ ଜଣାଇବା ବେଳେ ଯଦି ଏହା ତୁରନ୍ତ ସମାଧାନ ହେବାର ଆବଶ୍ୟକତା ଥାଏ ତେବେ ସଂଗ୍ରାମୀ ତଥ୍ୟ ପ୍ରଦାନ ରେ ତତ୍ପରତା ଦେଖାଇବା ଉଚିତ | ଉଦାହରଣ ସ୍ୱରୂପ ଯଦି ଜଣେ ସଙ୍ଗରୋଧ କେନ୍ଦ୍ରରେ ଏକାନ୍ତ ଅବସ୍ଥାନ ରୁ ବାହାରିଛନ୍ତି  କିମ୍ବା ଜଣେ ବ୍ୟକ୍ତି ଯିଏ ଆଗରୁ ନିଶ୍ୱାସ  ପ୍ରଶ୍ୱାସ   ନେବାରେ ଅସୁବିଧା ଭୋଗୁ  ନଥିଲେ,  ହଠାତ  ନିଶ୍ୱାସ  ପ୍ରଶ୍ୱାସ  ନେବାରେ ଅସୁବିଧା , ଶୁଖିଲା କାଶ ଆଦି ର ଅଭିଯୋଗ କରନ୍ତି ତାହେଲେ ଏହା  ତୁରନ୍ତ  ଡାକ୍ତରଙ୍କ ନଜରକୁ ଆସିବା ଉଚିତ |
+      </li>
+    </ul>
+
+    <h5 style="border-bottom: 1px solid #CCC;" class="term-heading">{{app.langSelection == 1 ? 'DOs FOR VOLUNTEERS WHO ARE ENGAGED IN NON-HEALTH CARE SERVICES' : '     ଅଣ ସ୍ୱାସ୍ଥ୍ୟ ସମ୍ପର୍କିତ କାର୍ଯ୍ୟ ରେ ନିୟୋଜିତ କୋଭିଡ ସଂଗ୍ରାମୀ ମାନେ କଣ କରିବେ' }}</h5>
+    <ul class="term-list">
+      <li *ngIf="app.langSelection == 1">1. A Volunteer should strictly adhere to the geographical area of work and the specific responsibilities assigned to him/her
+        without deviating from it.</li>
+      <li *ngIf="app.langSelection == 2">
+          ୧. ସଂଗ୍ରାମୀ ସ୍ୱେଚ୍ଛାସେବୀ କେବଳ ତାଙ୍କୁ ଦିଆ ଯାଇଥିବା ଭୌଗଳିକ ପରିସୀମା ମଧ୍ୟରେ ଏବଂ ଅନୁବନ୍ଧିତ    କାର୍ଯ୍ୟର ପରିସୀମା ମଧ୍ୟରେ କାମ କରିବେ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">2. As the government of Odisha has recently come up with the order that a person has to cover his/her face when he/she
+        comes out of his home, so the volunteer need to cover his/her face with a mask, two layered clothe like a dupatta/Odhani/Handkerchif/gamuchha
+        etc. while delivering the duty as a volunteer.</li>
+      <li *ngIf="app.langSelection == 2">
+         ୨. ଯେହେତୁ ଓଡିଶା ସରକାର ନିକଟରେ ନିର୍ଦେଶ ପ୍ରଣୟନ କରିଛନ୍ତି ଯେ ପ୍ରତ୍ୟେକ ବ୍ୟକ୍ତି ଘରୁ ବାହାରିଲେ ନିଜର ମୁହଁ କୁ ଢାଙ୍କି ବାହାରିବେ ସୁତରାଂ ପ୍ରତ୍ୟେକ ସଂଗ୍ରାମୀ  ସ୍ୱେଚ୍ଛାସେବୀ ନିଜର ସେବା ପ୍ରଦାନ ସମୟରେ ନିଜର ମୁହଁକୁ ଦୁଇ ପରସ୍ତ କପଡା ଯୁକ୍ତ ମୁଖା, ରୁମାଲ ଇତ୍ୟାଦି  ରେ  ଢାଙ୍କିବେ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">3. A volunteer should visit the local administration at regular intervals and should keep in touch with them so as to
+        report about the activities that are being executed by him/her, to appraise the administration about the progress
+        made, the problems being encountered by them and the help that they expect. </li>
+      <li *ngIf="app.langSelection == 2">
+        ୩.  ସଂଗ୍ରାମୀ ସ୍ୱେଚ୍ଛାସେବୀ ମାନେ ସ୍ଥାନୀୟ ପ୍ରଶାସନ ସହିତ ନିୟମିତ ଭାବେ ଯୋଗାଯୋଗ ରଖିବେ ଏବଂ ନିଜର    କାର୍ଯ୍ୟ ସମ୍ବନ୍ଧୀୟ ବିବରଣୀ ଦେବା ସଙ୍ଗେ ସଙ୍ଗେ କାର୍ଯ୍ୟ ର ଅଗ୍ରଗତି,  ଉପୁଜିଥିବା ଅସୁବିଧା ଓ ସେମାନେ କି ପ୍ରକାର ସାହାଯ୍ୟ ଆବଶ୍ୟକ କରୁଛନ୍ତି ଇତ୍ୟାଦି ବିଷୟ ରେ ଆଲୋଚନା କରିବେ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">4. A volunteer should first acquaint himself/herself with the geographical area and the population for which he/she has
+        been deployed to work for. He/she should be in touch with the ASHA /Urban ASHA, AWW and ANM so that he/she can get
+        required information from their records, regarding the population of that area which includes the health profile
+        of the population from ASHA diary.
+      </li>
+      <li *ngIf="app.langSelection == 2">
+          ୪.  ସଂଗ୍ରାମୀ ସ୍ୱେଚ୍ଛାସେବୀ ମାନେ ପ୍ରଥମେ ସେମାନଙ୍କୁ ଦିଆ ଯାଇଥିବା କାର୍ଯ୍ୟ ର ଭୌଗଳିକ ପରିସୀମା ଏବଂ  ସେଠାରେ ବସବାସ କରୁଥିବା ଲୋକ ମାନଙ୍କ ବିଷୟ ରେ ଜାଣିବା ଉଚିତ |  ସେମାନେ ସେହି ଅଂଚଳର ଆଶା କର୍ମୀ, ଅଙ୍ଗନବାଡି କର୍ମୀ ତଥା ANM  ଦିଦି ଙ୍କ ସହ ସମ୍ପର୍କ ରଖିବା ଉଚିତ ଯାହାଦ୍ୱାରା ସେ ଅଂଚଳ ର ଲୋକ ତଥା ଜନସ୍ୱାସ୍ଥ୍ୟ ବିଷୟରେ ଅନେକ ତଥ୍ୟ ପାଇ ପାରିବେ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">5. The volunteer should first develop a good rapport with the population with which he/she is supposed to work. This will
+        help him/her to identify the need of the different section of the population like elders, people with pre-existing
+        diseases who are more vulnerable to acquire the infection. Good rapport with the people will also help in mobilizing
+        community support when required in COVID-19 response work.
+      </li>
+      <li *ngIf="app.langSelection == 2">
+          ୫.  ସଂଗ୍ରାମୀ ସ୍ୱେଚ୍ଛାସେବୀ ମାନେ ଯେଉଁ ଅଂଚଳରେ କାର୍ଯ୍ୟ କରିବେ ସେହି ଅଂଚଳ ର ଲୋକ ମାନଙ୍କ ସହ  ସୁସମ୍ପର୍କ ସ୍ଥାପନ କରିବା ଉଚିତ ଓ  ସମାଜ ର ବିଭିନ୍ନ ବର୍ଗ ର ଲୋକ ଯଥା ବୟସ୍କ,  ପୂର୍ବରୁ ସ୍ୱାସ୍ଥ୍ୟ ସମସ୍ୟା  ଥିବା ବ୍ୟକ୍ତି ବିଶେଷ, ଯେଉଁମାନେ ଭୁତାଣୁ ଆକ୍ରମଣର ସହଜ ଶିକାର ହେବାର ସମ୍ଭାବନା ଅଛି, ସେମାନଙ୍କର ଆବଶ୍ୟକତା ବିଷୟରେ ସଚେତନ ହୋଇ  ପାରିବେ |  ଏହି ସୁସମ୍ପର୍କ କୋଭିଡ ମୁକାବିଲା ପାଇଁ  ଆବଶ୍ୟକସ୍ଥଳେ ଗୋଷ୍ଠୀ ସହାୟତା ପାଇବାରେ ମଧ୍ୟ ସହାୟକ ହେବ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">6. After coming back to home from the duty, the volunteer must wash hands thoroughly using soap, following the hand washing
+        guidelines for at least 20 seconds. Then the clothes used during the duty hours should either be put in a bag or
+        should be washed using detergents before using them again. The other personal use items like mobile, purse, vanity
+        bag should be sanitized using an alcohol-based sanitizer.
+      </li>
+      <li *ngIf="app.langSelection == 2">
+          ୬. ସଂଗ୍ରାମୀ ମାନେ କାମ ପରେ ସାବୁନ ରେ ହାତ ଧୁଆ ନିର୍ଦେଶାବଳୀ ଅନୁସାରେ ଭଲଭାବେ ଅତି କମରେ ୨୦ ସେକେଣ୍ଡ  ଯାଏ ହାତଧୋଇବେ | ଏହା ପରେ ନିଜର ଲୁଗାପଟା, ମୋବାଇଲ, ପର୍ସ ଓ ଅନ୍ୟାନ୍ୟ  ସାମଗ୍ରୀ ଗୋଟେ ବ୍ୟାଗ ରେ ଅଲଗା ରଖିବେ ଓ ପରଦିନ ବ୍ୟବହାର କରିବେ ନଚେତ ମୋବାଇଲ, ପର୍ସ ଓ ଅନ୍ୟାନ୍ୟ  ସାମଗ୍ରୀକୁ ଆଲକୋହଲ ଥିବା ସାନିଟାଇଜରରେ ପୋଛି ରଖିବେ ଓ  ଲୁଗାପଟା କୁ ସାବୁନ କିମ୍ବା ଡେଟରଜେଣ୍ଟରେ ଭଲ ଭାବେ ସଫା କରି ପୁନର୍ବ୍ୟବହାର କରିବେ |
+      </li>
+    </ul>
+
+    <h5 style="border-bottom: 1px solid #CCC;" class="term-heading">{{app.langSelection == 1 ? 'DO NOTs FOR A VOLUNTEER WHO ARE ENGAGED IN NON-HEALTH CARE SERVICES RELATED WORK' :'ଅଣ ସ୍ୱାସ୍ଥ୍ୟ ସମ୍ପର୍କିତ କାର୍ଯ୍ୟ ରେ ନିୟୋଜିତ କୋଭିଡ ସଂଗ୍ରାମୀ ମାନେ କଣ କରିବେ ନାହିଁ '}} </h5>
+    <ul class="term-list">
+      <li *ngIf="app.langSelection == 1">1. While generating awareness among the public about the CORONA virus never ever tell anything that may create a panic
+        among the people and they may go in for any irrational activity.
+      </li>
+      <li *ngIf="app.langSelection == 2">
+          ୧. କୋଭିଡ ସମ୍ପର୍କିତ ଜନସଚେତନତା ସୃଷ୍ଟିକରିବା ସମୟରେ ସଂଗ୍ରାମୀ ମାନେ ଏପରି କିଛି କହିବେ ନାହିଁ ଯାହା ଜନସାଧାରଣଙ୍କ ମଧ୍ୟରେ ଭୟର ବାତାବରଣ ସୃଷ୍ଟି କରିବ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">2. Never deviate from the messages which are being propagated through the IEC materials developed by government on CORONA
+        and never say anything out of your own knowledge which is not in line with the government message in this context.
+      </li>
+      <li *ngIf="app.langSelection == 2">
+          ୨. ଗାଁ, ସହର  କିମ୍ବା ବସ୍ତି ଅଂଚଳରେ କୋଭିଡ ସମ୍ପର୍କିତ ସଚେତନତା କରିବା ସମୟରେ ସଂଗ୍ରାମୀମାନେ ସରକାର ପ୍ରକାଶ କରିଥିବା ସଚେତନତାର ବାର୍ତାଗୁଡ଼ିକୁ ଅକ୍ଷରେ ଅକ୍ଷରେ ବ୍ୟବହାର କରିବେ ତଥା ନିଜମନରୁ କିଛି କହିବେନାହିଁ ଯାହା  ସରକାରୀ ସଚେତନତାର ବାର୍ତା ଭିତରେ ନଥିବ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">3. Never show any biasness in delivering your service to the migrant laborers, elderly persons or anyone else on the basis
+        of religion, caste, color, gender or region to which someone belongs to.
+      </li>
+      <li *ngIf="app.langSelection == 2">
+          ୩. ସଂଗ୍ରାମୀ ମାନେ ନିଜର କର୍ତବ୍ୟ ପାଳନ ସମୟରେ ପ୍ରବାସୀ ଶ୍ରମିକ, ବୃଦ୍ଧ କିମ୍ବା ଅନ୍ୟ କୌଣସି ଲୋକ   ମାନଙ୍କ ପ୍ରତି ଜାତି, ଧର୍ମ, ବର୍ଣ୍ଣ  କିମ୍ବା ଲିଙ୍ଗ ଆଧାର ରେ  ଭେଦଭାବ କରିବେ ନାହିଁ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">4. Never try to be in a hurry. Your duty as a volunteer requires patience, optimum care, compassion, attention towards
+        detailing and quality in your work. These things can only be achieved when you do your work with the pace which is
+        the need of the hour as per the circumstances.
+      </li>
+      <li *ngIf="app.langSelection == 2">
+          ୪. କୌଣସି ସମୟରେ ତରତର ହେବା ଉଚିତ ନୁହେଁ | ସଂଗ୍ରାମୀ ହେବାକୁ ହେଲେ ଧୈର୍ଯ୍ୟ, ସମର୍ପଣଭାବ, କରୁଣା ଓ ନିଜ କାମରେ ଉଚ୍ଚ ମାନର କାର୍ଯ୍ୟ ଦକ୍ଷତା ର ଆବଶ୍ୟକତା ଥାଏ;  ଏହା  ସେତେବେଳେ ସମ୍ଭବ, ଯେତେବେଳେ ସଂଗ୍ରାମୀ ବର୍ତମାନ  ପରିପ୍ରେକ୍ଷୀ ରେ ନିଜ ବିବେକ ଅନୁସାରେ କାର୍ଯ୍ୟ କରିବେ |
+      </li>
+    </ul>
+
+    <h5 style="border-bottom: 1px solid #CCC;" class="term-heading">{{app.langSelection == 1 ? 'Disclaimer' :  'ବିଶେଷ ସୂଚନା' }}</h5>
+    <ul class="term-list">
+      <li *ngIf="app.langSelection == 1">1. The assignment is purely on a voluntary basis without any compensation.</li>
+      <li *ngIf="app.langSelection == 2">୧. ଏହି କାର୍ଯ୍ୟ ସମ୍ପୂର୍ଣ୍ଣ ଭାବେ ସ୍ୱେଚ୍ଛାକୃତ ଏବଂ ଏହି  କାର୍ଯ୍ୟରେ କୌଣସି ପାରିଶ୍ରମିକ ମିଳିବ ନାହିଁ |</li>
+
+      <li *ngIf="app.langSelection == 1">
+        2. The volunteer shall indemnify Government of Odisha for any liability arising from their acts of omission or commission.
+      </li>
+      <li *ngIf="app.langSelection == 2">
+        ୨. ସଂଗ୍ରାମୀ ମାନେ ସେମାନଙ୍କର କାର୍ଯ୍ୟରେ ଯଦି  କୌଣସି ଆର୍ଥିକ କ୍ଷତି ଅର୍ଜନ କରନ୍ତି ତାହେଲେ ସେମାନେ ସରକାରଙ୍କୁ କ୍ଷତିପୂରଣ ମାଗି ପାରିବେ ନାହିଁ |
+      </li>
+
+      <li *ngIf="app.langSelection == 1">3. The volunteer is responsible for his/her insurance and shall not claim any insurance benefits from Govt. of Odisha</li>
+      <li *ngIf="app.langSelection == 2">
+        ୩. ସଂଗ୍ରାମୀ ମାନେ ନିଜର ବ୍ୟକ୍ତିଗତ ବୀମା ନିଜେ କରିବେ ଏବଂ ସରକାରଙ୍କୁ କୌଣସି ବୀମାଗତ ଲାଭ ବିଷୟରେ ଦାବି କରିବେ ନାହିଁ |
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-12 check">
+    <mat-checkbox
+          class="agree-checkbox"
+          name="termAgree" [checked]="vrService.termAgree"
+          [(ngModel)]="vrService.termAgree"
+          >
+    </mat-checkbox>
+    I have read and agree with the terms and conditions
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+ <button mat-button mat-dialog-close cdkFocusInitial>OK</button>
+</mat-dialog-actions>

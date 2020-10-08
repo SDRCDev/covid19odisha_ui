@@ -1,0 +1,62 @@
+
+@import "assets/styles/_color.scss";
+$BaseBG: rgb(196, 255, 230);
+
+
+
+.digit-group {
+	input {
+		width: 30px;
+		height: 50px;
+		background-color: lighten($BaseBG, 5%);
+		border: none;
+		line-height: 50px;
+		text-align: center;
+		font-size: 24px;
+		font-family: 'Raleway', sans-serif;
+		font-weight: 200;
+		color: #000;
+		margin: 0 2px;
+		padding-right: 0 !important;
+	}
+
+	.splitter {
+		padding: 0 5px;
+		color: #CCC;
+		font-size: 24px;
+	}
+}
+.digit-group input:active, .digit-group input:focus, .digit-group input:hover {
+    outline: none;
+}
+a.resend-otp {
+    font-size: 14px;
+    color: blue !important;
+    text-decoration: underline !important;
+	margin-top: -20px;
+	cursor: pointer;
+}
+.prompt {
+	margin-bottom: 20px;
+    font-size: 15px;
+	color: #000;
+}
+.otp-form {
+    max-width: 437px;
+    text-align: center;
+    padding: 30px 50px;
+    border: 1px solid #CCC;
+    margin: auto;
+    margin-top: 115px;
+}
+.user-submit {
+    background-color: $color2;
+    border-radius: 0;
+    width: 100px;
+    color: #FFF;
+    box-shadow: 1px 1px 3px 1px #484848;
+}
+.btn.disabled, .btn:disabled,  .btn:disabled:hover{
+	background-color: #333 !important;
+	cursor: default;
+}

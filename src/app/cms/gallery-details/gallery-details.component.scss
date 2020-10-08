@@ -1,0 +1,114 @@
+.downloaded-icon {
+    padding: 5px;
+}
+.whatsnew-head-line
+{
+    font-size: 24px;
+    font-weight: bold;
+    color: orange;
+    border-bottom: 1px solid;
+    width: 100%;
+}
+.read-more-btn {
+    background: #ddd0;
+    color: #000 !important;
+    box-shadow: none;
+    margin-left:-20px;
+    padding:6px;
+}
+
+.modal-content .close, .modal-content .close:hover {
+    color: #3a393f;
+}
+.image-modal-body { height: 550px;}
+.modal .image-modal-header{
+    background-color: #ffffff !important;
+    height: 35px;
+}
+.image-modal-dialog {
+    max-width: 1200px;
+}
+.read-more-btn:hover {
+    background: #1f497b;
+    box-shadow: 0 0 3px 2px #d4d3d3;
+    color: #fff !important;
+}
+.pdf-icon-border {
+    margin-left: 10px;
+}
+.pdf-title {
+    cursor: default;
+    color: #1f497b !important;
+}
+.sub-photo-gallery-head {
+    margin-left: 6px;
+    font-size: 14px;
+    margin-top: 23px;
+    padding: 6px 0 6px 10px;
+    color: #1f497b;
+    cursor: pointer;
+}
+.back-arrow {
+    margin-right: 5px;
+}
+.pdf-title, .file-title-block
+ { 
+    text-decoration: none !important;
+    cursor: default;
+ }
+ .news-link-add-image {
+    width: 5%;
+    height: 44px;
+    margin-bottom: 30px;
+    cursor: pointer;
+ }
+ .imageTumbnail { cursor: pointer;}
+
+
+.preview-icon {
+    width: 20px;
+    margin: -2px 3px 0 10px;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 5px 15px!important;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-align: start;
+    -webkit-box-align: start;
+    align-items: flex-start;
+    -ms-flex-pack: justify;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    border-bottom: 1px solid #e9ecef;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+}
+
+.modal-content .close {
+    position: absolute;
+    right: 15px;
+    top: 16px;
+    height: 38px;
+}
+.cursor-point{cursor: pointer;}
+.fileSize{font-size:12px;}
+.hover-underline:hover{
+        text-decoration: underline;
+}
+.title-heading{
+    border-bottom: 1px solid #333;
+    font-size: 20px;
+}
+.img-name{
+    margin-top: 20px;
+    font-size: 12px;
+}
+.preview-video{
+    max-width: 450px;
+}
+.preview-image {
+    max-width: 450px;;
+}

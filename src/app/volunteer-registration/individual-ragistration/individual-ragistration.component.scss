@@ -1,0 +1,61 @@
+@import "assets/styles/_color.scss";
+.user-submit {
+    background-color: $color2;
+    border-radius: 0;
+    width: 150px;
+    color: #FFF;
+    box-shadow: 1px 1px 3px 1px #484848;
+}
+.page-heading {
+    margin: 35px 0;
+    border-bottom: 1px solid #CCC;
+    padding: 10px 0;
+}
+.radio-label {
+    display: block;
+    margin-top: 5px;
+}
+.photo-prev {
+    border: 1px solid #CCC;
+}
+.sub-questions {
+    padding: 5px 15px;
+    margin-left: 0;
+    margin-right: 0;
+}
+.label-heads {
+    font-weight: 500;
+}
+.reg-field-container {
+    padding: 15px;
+}
+.term-condition-link {
+    color: blue !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+.dnone{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+}
+.term-check {
+    padding: 15px;
+    color: $color2;
+}
+.no-display {
+    max-width: 0;
+    padding-left: 0;
+}
+.btn.disabled, .btn:disabled,  .btn:disabled:hover{
+    background-color: #333 !important;
+    cursor: default;
+}
+.suggest-training.ng-star-inserted {
+    font-size: 14px;
+    padding: 5px;
+    border: 1px solid $color1;
+}
+.hint-text{
+    font-size: 10px;
+}

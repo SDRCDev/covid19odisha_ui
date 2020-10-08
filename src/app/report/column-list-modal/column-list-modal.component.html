@@ -1,0 +1,16 @@
+<h2 mat-dialog-title class="success">{{data.header}}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="col-md-12" *ngFor="let column of columnList;let i=index" class="checbox-container">
+    <mat-checkbox class="column-checkbox" [(ngModel)]="column.value">{{column.name}}</mat-checkbox>
+    <div class="checkbox-child-container" *ngIf="column.child?.length && column.value">
+      <div *ngFor="let childCol of column.child">
+        <mat-checkbox class="column-checkbox" [(ngModel)]="childCol.value">{{childCol.name}}</mat-checkbox>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button mat-dialog-close cdkFocusInitial class="cancel-btn">Cancel</button>
+  <button mat-button cdkFocusInitial class="download-btn" (click)="downloadReport()">Download</button>
+  
+</mat-dialog-actions>

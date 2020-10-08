@@ -1,0 +1,241 @@
+<div class="container-fluid">
+    <div class="row question-row">
+      <div class="col-lg-3 left-list">
+          <app-landing-side-menu></app-landing-side-menu>
+      </div>
+      <div class="col-lg-9 content-sec offset-lg-3 ">
+        <h2 class="page-heading">{{app.langSelection==1? 'Resources' :' ସାଧନ'}} </h2> 
+        <form class="row" #f="ngForm" (submit)="f.valid?publishData(f):''">
+          <div class="col-md-12 margin-fields">
+            <mat-form-field>
+              <input matInput name="title" maxlength="100" [placeholder]="app.langSelection == 1 ? 'Title':' ଆଖ୍ୟା'" required 
+               [(ngModel)]="selectionsValue.title">              
+              <mat-error class="padding-bottom">
+                {{f.controls['title']?.errors?.pattern ? 'Title accepts only aplhanumeric and white space':'Please add title'}}
+              </mat-error>
+            </mat-form-field>
+            <div class="hints">({{selectionsValue?.title?.length ? selectionsValue?.title?.length: 0}} / 100)</div>
+          </div>
+          <div class="col-md-12 margin-fields">
+            <mat-form-field>
+              <textarea matInput  name="desc" maxlength="500" [placeholder]="app.langSelection == 1 ? 'Description':' ବର୍ଣ୍ଣନା'" [(ngModel)]="selectionsValue.desc"
+               required></textarea>             
+              <mat-error class="padding-bottom">
+                  {{f.controls['desc']?.errors?.pattern ? 'Description should allow alphanumeric and white space':'Please add description'}}
+              </mat-error>
+            </mat-form-field>
+            <div class="hints">({{selectionsValue?.desc?.length ? selectionsValue?.desc?.length: 0}} / 500)</div>
+          </div>
+          <div class="col-md-12 margin-fields">
+              <mat-form-field>
+                <mat-label> {{app.langSelection==1? 'Resource type' :' ସାଧନର ପ୍ରକାର'}} </mat-label>
+                <mat-select required [(ngModel)]="selectedResourceTypeId" matInput name="resource1" (selectionChange)="selectResourceType(selectedResourceTypeId)">
+                  <mat-option  *ngFor="let type of allResourceTypes" [value]="type.slugId">{{type.name}}</mat-option>
+                </mat-select>
+                <mat-error class="padding-bottom">
+                  Please select a Resource type
+              </mat-error>
+              </mat-form-field>
+            </div>
+          <div class="col-md-12 field-holder" *ngFor="let imgs of data; let i=index;">
+              <div *ngIf="uploadedImageFiles" class="col-md-12 uploadedImgShow">
+                <div class="col-md-12">
+                  <!-- <img src={{imgs.filepath}} width="100px" height="100px"> -->
+                  <div class="imgCap">
+                      {{imgs.path.split('resources/')[1]}}
+                    </div>
+                  <div class="delete-img" (click)="deleteUploadedImages(i)">Delete</div>
+                </div>
+              </div>
+            </div>
+          <div class="col-md-12">
+            <div class="row margin-fields" *ngFor="let imgCount of uploadImageFiles;let i=index;">
+              <div class="col-md-12 field-holder" *ngIf="uploadImageFiles">
+                <label>{{app.langSelection==1? ' Upload File' :' ଫାଇଲ୍ ଅପଲୋଡ୍ କରନ୍ତୁ'}}<span class="spanErr">&nbsp;*</span><span class="hint-inline">(Maximum size: 25MB)</span></label>
+                <div class="browse-input">
+                  <input id="uploadFile" #inputFile type="file" name="{{'uploadFile'+i.toString()}}" [(ngModel)]="imgCount.image_url"
+                     required  [accept]="extensionsDocument?convertExtToAcceptString(extensionsDocument):''"  (change)="fileUpload(f, $event,extensionsDocument,imgCount,25000000,i)">
+                </div>              
+              </div>
+              <div >
+                <mat-error class="padding-bottom uploadErr" *ngIf="f.controls['uploadFile'+i.toString()]?.errors?.required && (f.controls['uploadFile'+i.toString()]?.touched || f.submitted)">
+                    {{'Please upload file'}}
+                </mat-error>
+                <mat-error class="padding-bottom uploadErr" *ngIf="fileExtensionValidationMessage && i==uploadImgIndex">
+                    {{fileExtensionValidationMessage}}
+                </mat-error>
+              </div>
+       
+            
+          </div>
+          <div class="col-md-12 margin-fields"
+          *ngIf="uploadImageFiles.length>1 || ((uploadImageFiles.length && uploadedImageFiles.length) && data.length)">
+          <div class="btn-classes">
+            <a class="add-new deleteFile" (click)="deleteUploads()">Delete</a>
+          </div>
+        </div>
+        <div class="col-md-12 margin-fields">
+          <div class="btn-classes" *ngIf="uploadImageFiles.length || (data && data.length < 5)">
+            <a class="add-new" [hidden]="(uploadImageFiles.length + uploadedImageFiles.length)==5" *ngIf="!((uploadImageFiles.length + data ? data.length: 0)==5)"
+              (click)="addImages()">{{app.langSelection == 1 ? 'Add New' : ' ନୂଆ ଫାଇଲ ଯୋଡନ୍ତୁ'}}</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 margin-fields">
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipList aria-label="Fruit selection">
+            <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+              {{tag.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input [placeholder]="app.langSelection == 1 ? 'Tags':' ଟ୍ୟାଗ୍'" [matChipInputFor]="chipList" [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event)">            
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12 form-group btns-desgn text-right">
+        <button mat-button class="btn submit-btn" type="submit"> {{app.langSelection==1? 'Publish' :'  ପ୍ରକାଶିତ କରନ୍ତୁ'}} </button>
+        <button mat-button class="btn submit-btn reset-btn" type="button" (click)="resetForm(f)">{{app.langSelection==1? 'Reset' :'  ପୁନର୍ବାର ସେଟ କରନ୍ତୁ'}}</button>
+      </div>
+      </form>
+      <div class="col-md-12 table-content">
+        <div class="table-btn search">
+          <div class="col-md-3 form-group">
+            <input class="form-control" type="text" id="myInput" [(ngModel)]="searchFilter" placeholder="Search"
+              maxlength="100" />
+            <span *ngIf="searchFilter" class="search-close" (click)="clearSearchText();">
+            </span>
+          </div>
+        </div>
+        <div class="table-responsive">
+        <table class="table table-striped">
+          <thead style="border-bottom: 5px solid #fff;">
+            <tr>
+              <th *ngFor="let col of tableColumn; let colms=index" [ngClass]="colms == 0 ? 'selected': 'oddTabelHead'">
+                {{col.split('#')[1]}}
+              </th>
+              <th class="oddTabelHead td-minWidth text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let rowDetails of tableData | reverseResource | searchPipe: searchFilter | paginate: {itemsPerPage: itemsPerPage, currentPage: p} let i = index;">
+              <td *ngFor="let col of tableColumn">
+                <div *ngIf="rowDetails">{{rowDetails[col.split('#')[0]]}}</div>
+              </td>
+              <td class="td-minWidth">
+                <!-- <pre>{{rowDetails | json }}</pre> -->
+                <span class="fa-stack iconImg" matTooltip="View" (click)="viewMore(rowDetails)">
+                  <img class="d-block w-100" src="assets/images/fani_view.png">
+                </span>
+                <span class="fa-stack iconImg" matTooltip="Edit"
+                  (click)="editStoryDetails(rowDetails.id, rowDetails)">
+                  <img class="d-block w-100" src="assets/images/fani_edit.png">
+                </span>
+                <span class="fa-stack iconImg" matTooltip="Delete" (click)="openModalOnDeleteClick(rowDetails.id)">
+                  <img class="d-block w-100" src="assets/images/fani_delete.png">
+                </span> 
+                <!-- <button class="admin-stories" *ngIf="app.checkUserAuthorization(['SUCCESS_STORY_ADMIN'])">       
+                <span class="fa-stack iconImg" matTooltip="Approve" *ngIf="!rowDetails.isApprove"
+                      (click)="!rowDetails.isApprove ? openModalOnApproveClick(rowDetails.id):''">
+                      <img class="d-block w-100" src="assets/images/fani_approve.png"></span>
+                    </button>   -->
+                    <button class="admin-stories mob-view" *ngIf="rowDetails.isApprove && app.checkUserAuthorization(['CMS_Admin'])"  [disabled]="rowDetails.isApprove">
+                      <span class="fa-stack" matTooltip="Approved">
+                        <img class="d-block w-100" src="assets/images/fani_approved.png">
+                      </span>
+                    </button>
+                    <button class="admin-stories" *ngIf="!rowDetails.isApprove && app.checkUserAuthorization(['CMS_Admin'])">
+                      <span class="fa-stack iconImg" matTooltip="Approve"
+                        (click)="openModalOnApproveClick(rowDetails.id)">
+                        <img class="d-block w-100" src="assets/images/fani_approve.png">
+                      </span>
+                    </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <div
+          *ngIf="(tableData && !tableData.length) || (tableData && tableData.length && (tableData | searchPipe: searchFilter).length==0)"
+          class="col-md-12 text-center no-data">No Data Found.
+        </div>
+        <div *ngIf="(tableData && tableData.length && (tableData | searchPipe: searchFilter).length)">
+          <pagination-controls (pageChange)="p = $event;" class="pagination"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  
+  <div id="publishedSuccess" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <h4>Success !</h4>
+          <p>Published Successfully!</p>
+          <button class="btn" data-dismiss="modal"><span>OK</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="deleteStory" class="modal fade" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <h4>INFO !</h4>
+            <p>Are you sure you want to delete ?</p>
+            <button class="btn" (click)="deleteSelectedStory()" style="margin-right: 5px;"><span>Yes</span></button>
+            <button class="btn" data-dismiss="modal"><span>Cancel</span></button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div id="approveSuccess" class="modal fade" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+             <h4>Success !</h4>
+            <p>Approved Successfully!</p>
+            <button class="btn" data-dismiss="modal"><span>OK</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  <div id="deleteSuccess" class="modal fade" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <h4>Success !</h4>
+            <p>Deleted Successfully!</p>
+            <button class="btn" data-dismiss="modal"><span>Ok</span></button>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div id="error" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <h4>Error !</h4>
+          <p>Something Went Wrong!!</p>
+          <button class="btn" data-dismiss="modal"><span>OK</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="approveConfirm" class="modal fade" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <h4>INFO !</h4>
+            <p>Are you sure you want to approve this in resource ?</p>
+            <button class="btn" (click)="approve()" style="margin-right: 5px;"><span>YES</span></button>
+            <button class="btn" data-dismiss="modal"><span>CANCEL</span></button>
+          </div>
+        </div>
+      </div>
+    </div>

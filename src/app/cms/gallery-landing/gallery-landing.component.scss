@@ -1,0 +1,269 @@
+
+.back-arrow {
+    height: 13px;
+    width: 13px;
+    margin: 4px 5px 6px 0;
+  }
+  #videoModal {
+    z-index: 9999;
+  }
+  #videoModal .modal-dialog {
+    max-width: 700px;
+    width: 100%;
+  }
+  button.close.video-modal-close {
+    position: fixed;
+    top: 0;
+    right: 15px;
+    color: #ffffff;
+  }
+  /*navbar */
+  .project-tab {
+    padding: 10%;
+    margin-top: -8%;
+  }
+  .project-tab #tabs{
+    background: #007b5e;
+    color: #eee;
+  }
+  .project-tab #tabs h6.section-title{
+    color: #eee;
+  }
+   .nav-item {
+       color: #29af8a;
+   }
+  .project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+    color: #29af8a;
+    background-color: #29af8a;
+    color: #fff;
+    font-size: 16px;
+  }
+  .project-tab .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #1CABE2;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .project-tab .nav-link:hover {
+    border: none;
+  }
+  .project-tab thead{
+    background: #f3f3f3;
+    color: #333;
+  }
+  .project-tab a{
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+  }
+  div#nav-tab {
+    width:50%;
+  }
+  a#nav-home-tab {
+    width:100px;
+  }
+  
+  .padding-top{
+    padding-top:20px
+  }
+  
+  @media(max-width: 450px) {
+       div#nav-tab {
+        width:100%;
+      }
+  }
+  
+  ul {
+    padding: 0;
+    width: 1200px;
+    margin: 20px auto;
+  }
+  li { display: inline; }
+  
+  .tn {
+    margin: 6px;
+    border: 4px solid #eee;
+    box-shadow: 1px 1px 1px 1px #555;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  .row > .column {
+    padding: 0 8px;
+  }
+  
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .column {
+    float: left;
+    width: 25%;
+  }
+  
+  /* The Modal (background) */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: black;
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    max-width: 1200px;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .mySlides {
+    display: none;
+  }
+  
+  .cursor {
+    cursor: pointer;
+  }
+  
+  /* Next & previous buttons */
+  .prev,
+  .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+  
+  img {
+    margin-bottom: -4px;
+  }
+  
+  .caption-container {
+    text-align: center;
+    background-color: black;
+    padding: 2px 16px;
+    color: white;
+  }
+  
+  .demo {
+    opacity: 0.6;
+  }
+  
+  .active,
+  .demo:hover {
+    opacity: 1;
+  }
+  
+  img.hover-shadow {
+    transition: 0.3s;
+  }
+  
+  .hover-shadow:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .gal_txt {
+    padding: 0px 0px;
+    margin: 0 0 20px 0px;
+    color: #1f497b;
+  }
+  .photo-categories {
+    width: 100%;
+    box-shadow: 0px 1px 3px 2px #9E9E9E;
+    border: 2px solid #1f497b;
+    max-height: 100px;
+    overflow: hidden;
+    min-height: 100px;
+  }
+  
+  .zoom {
+    transition: transform .2s;
+    margin: 0 auto;
+  }
+  
+  .zoom:hover {
+    -ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.2); /* Safari 3-8 */
+    transform: scale(1.1); 
+  }
+  
+  .sub-category-image {
+    width: 100%;
+    margin: 10px 0px;
+    cursor: pointer;
+  }
+  
+  .pagination {
+    float: right;
+  }
+  
+  .album-name{
+    text-align: center;
+    font-weight: bold;
+    color: #1f497b;
+  }
+  .title-heading{
+    border-bottom: 1px solid #333;
+    font-size: 20px;
+    padding-top: 35px;
+  }

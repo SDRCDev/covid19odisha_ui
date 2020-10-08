@@ -1,0 +1,145 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="table-wrapper col-md-10 col-xs-11 page-title">Covid19 Tracking Data Entry</div>
+    <div class="table-wrapper col-md-10 col-xs-11">
+      <div class="p-0 date-wrapper">
+        <label for="usr" class="label-heads">Select a Date
+          <span style="color:red; font-weight:500;"></span> :
+        </label>
+        <mat-form-field>
+          <input matInput readonly [matDatepicker]="picker" (dateChange)="dateChanged($event)" name="dateOfTracking" [min]="minDate"
+            [max]="maxDate" [(ngModel)]="trackingDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error class="padding-bottom ">
+            <!-- {{sdrcForm['controls']['dob']?.errors?.pattern ? 'pattern':'Please provide date of birth'}} -->
+          </mat-error>
+        </mat-form-field>
+        <button *ngIf="displayRefreshYesterDay" class="btn btn-default proceed-btn user-submit" (click)="refreshYesterDay($event)">Refresh Yesterday Data</button>
+      </div>
+      <form class="" (submit)="submit($event)" [formGroup]="mainFormGroup" *ngIf="mainFormGroup && mainFormConfig">
+        <div class="table-holder" *ngFor="let eachIndicator of mainFormConfig[0].formInputs;let indicatorIndex = index">
+          <table [formArrayName]="eachIndicator.columnName" class="table">
+            <tr>
+              <th class="sticky-header" *ngIf="eachIndicator?.formInputs[0]?.formInputs[0]">District</th>
+              <th class="sticky-header">
+                Confirmed Cases Till Yesterday
+              </th>
+              <th class="sticky-header">
+                New Confirmed Cases
+              </th>
+              <th class="sticky-header">
+                Total Confirmed Cases
+              </th>
+              <th class="sticky-header">
+                Recovered Cases Till Yesterday
+              </th>
+              <th class="sticky-header">
+                New Recovered Cases
+              </th>
+              <th class="sticky-header">
+                Total Recovered Cases
+              </th>
+              <th class="sticky-header">
+                Deceased Cases Till Yesterday
+              </th>
+              <th class="sticky-header">
+                New Deceased Cases
+              </th>
+              <th class="sticky-header">
+                Total Deceased Cases
+              </th>
+              <th class="sticky-header">
+                Active Cases Till Yesterday
+              </th>
+              <th class="sticky-header">
+                New Active Cases
+              </th>
+              <th class="sticky-header">
+                Total Active Cases
+              </th>
+            </tr>
+            <tr *ngFor="let eachAreaWise of eachIndicator.formInputs;let areaIndex=index" [formGroupName]="eachAreaWise.columnName">
+              <th class="align-middle dist-name">
+                {{eachAreaWise.formInputs[1].value}}
+              </th>
+              <!-- Confirmed Cases Start -->
+              <td scope="row">{{getValueByProperty(eachAreaWise,areaIndex, 'confirmedCases')}}</td>
+              <td scope="row">
+                <mat-form-field class="login-field max-width-indicator">
+                  <input matInput [name]='' class="max-width-indicator" [onlyNumber]="number" type="number" [formControlName]="'confirmedCasesDiff'"
+                    [min]="'0'" (keyup)="projectValue(indicatorIndex, eachAreaWise.index ,eachAreaWise)">
+                </mat-form-field>
+              </td>
+              <td scope="row">{{getValueByProperty(eachAreaWise,areaIndex, 'totalConfirmedCases')}}</td>
+
+              <!-- Recovered Cases Start -->
+              <td scope="row">{{getValueByProperty(eachAreaWise,areaIndex, 'recoveredCases')}}</td>
+              <td scope="row">
+                <mat-form-field class="login-field max-width-indicator">
+                  <input matInput [name]='' class="max-width-indicator" [onlyNumber]="number" type="number" [formControlName]="'recoveredCasesDiff'"
+                    [min]="'0'" (keyup)="projectValue(indicatorIndex, eachAreaWise.index ,eachAreaWise)">
+                </mat-form-field>
+              </td>
+              <td scope="row">{{getValueByProperty(eachAreaWise,areaIndex, 'totalRecoveredCases')}}</td>
+
+              <!-- Deceased Cases Start -->
+              <td scope="row">{{getValueByProperty(eachAreaWise,areaIndex, 'deceasedCases')}}</td>
+              <td scope="row">
+                <mat-form-field class="login-field max-width-indicator">
+                  <input matInput [name]='' class="max-width-indicator" [onlyNumber]="number" type="number" [formControlName]="'deceasedCasesDiff'"
+                    [min]="'0'" (keyup)="projectValue(indicatorIndex, eachAreaWise.index ,eachAreaWise)">
+                </mat-form-field>
+              </td>
+              <td scope="row">{{getValueByProperty(eachAreaWise,areaIndex, 'totalDeceasedCases')}}</td>
+
+              <!-- Active Cases Start -->
+              <td scope="row">{{getValueByProperty(eachAreaWise,areaIndex, 'activeCases')}}</td>
+              <td scope="row">{{getValueByProperty(eachAreaWise,areaIndex, 'activeCasesDiff')}}</td>
+              <td scope="row">{{getValueByProperty(eachAreaWise,areaIndex, 'totalActiveCases')}}</td>
+
+            </tr>
+          </table>
+        </div>
+        <div class="form-group col-12 btn-wrapper">
+          <button class="btn btn-default proceed-btn user-submit" type="submit">Submit</button>
+          <button class="btn btn-default proceed-btn user-submit" type="reset" (click)="reset($event)">Reset</button>
+        </div>
+      </form>
+      <div *ngIf="!(mainFormGroup && mainFormConfig)" class="col-md-12 text-center no-data">No Data Found.
+      </div>
+
+    </div>
+    <!-- <div class="btn-wrapper text-center" *ngIf="allIndicators && mainFormGroup">
+      <button class="btn btn-primary" (click)="submit()">Submit</button>
+    </div> -->
+  </div>
+</div>
+
+<div id="publishedSuccess" class="modal fade" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <h4>Success !</h4>
+        <p>Data Submitted Successfully</p>
+        <button class="btn" data-dismiss="modal">
+          <span>OK</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="error" class="modal fade" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <h4>Error !</h4>
+        <p>Something Went Wrong!!</p>
+        <button class="btn" data-dismiss="modal">
+          <span>OK</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

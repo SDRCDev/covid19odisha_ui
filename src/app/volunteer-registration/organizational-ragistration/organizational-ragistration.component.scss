@@ -1,0 +1,64 @@
+@import "assets/styles/_color.scss";
+.user-submit {
+    background-color: $color2;
+    border-radius: 0;
+    width: 150px;
+    color: #FFF;
+    box-shadow: 1px 1px 3px 1px #484848;
+}
+.page-heading {
+    margin: 35px 0;
+    border-bottom: 1px solid #CCC;
+    padding: 10px 0;
+}
+.radio-label {
+    display: block;
+    margin-top: 5px;
+}
+.photo-prev {
+    border: 1px solid #CCC;
+}
+.sub-questions {
+    padding: 5px 15px;
+    margin-left: 0;
+    margin-right: 0;
+}
+.label-heads {
+    font-weight: 500;
+}
+.reg-field-container {
+    padding: 15px;
+}
+.term-condition-link {
+    color: blue !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+.dnone{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+}
+.btn.disabled, .btn:disabled,  .btn:disabled:hover{
+    background-color: #333 !important;
+    cursor: default;
+}
+.imp-note {
+    background-color: #52ac87;
+    color: #FFF;
+    padding: 10px;
+    margin-top: -16px;
+    margin-bottom: 16px;
+}
+.imp-note h5 {
+    font-size: 14px;
+    font-weight: 500;
+}
+.imp-note p {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+.term-check {
+    padding: 15px;
+    color: $color2;
+}

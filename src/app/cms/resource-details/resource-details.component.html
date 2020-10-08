@@ -1,0 +1,50 @@
+  <div class="container">
+    <div class="row">
+            <h4 (click)="backClicked()" class="sub-photo-gallery-head hover-underline">
+                <img class="back-arrow" src="./assets/images/back-arrow.png">Back to Resources</h4>       
+        <div class="col-md-12" >
+            <h2 class="title-heading left-pad">Resources</h2>
+            <p class="bestpraticeshead-head-line"></p>
+            <div>
+              <p style="font-weight:bold">{{selectedResourceDetails.title}}</p>
+              <p>{{selectedResourceDetails.description}}</p>
+              <span *ngFor="let file of selectedResourceDetails.filepathCaptionModel">
+                 <!-- <img class="preview-icon" title="Preview file before download" src="./assets/icons/eye-solid.svg" (click)="openPDF(staticService.whatsNewCategory.fileName)">
+                  <a class="preview-hover" title="Preview file before download" (click)="openPDF(staticService.whatsNewCategory.fileName)">
+                    Preview
+                  </a> -->
+                  <span class="file-padding fileSize">{{file.filepath.split('resources/')[1]}}</span>&nbsp;  
+                  <span class="fileFormat file-padding">
+                  <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;                                   
+                  <a class="cursor-point" title="Preview file before download" (click)="openPDF(file.filepath)">
+                    Preview
+                  </a>
+                  </span>
+                  <span class="fileFormat file-padding">
+                      <i class="fa fa-download downloaded-icon cursor-point" aria-hidden="true"></i>&nbsp;
+                  <a class="cursor-point" (click)="downloadFiles(selectedResourceDetails.filepathCaptionModel[0].filepath)" title="Download PDF">
+                    Download
+              </a> </span> &#124; 
+            </span>
+            <a target="_blank" *ngIf="selectedResourceDetails.link != '' && selectedResourceDetails.link != undefined " href="{{staticService.whatsNewCategory.link}}">Link to news content</a>
+            <img class="news-link-add-image" (click)="showImage()" title="Click to open image" 
+            *ngIf="selectedResourceDetails.imageName !='' && selectedResourceDetails.imageName !=undefined "
+            [src]= "gateway +'downloadCmsDoc?fileName='+selectedResourceDetails.imageName+'&inline='+true"   /> &nbsp;
+            </div>
+          </div>
+
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-width">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title" id="myModalLabel">Preview</h4>
+                </div>
+                <div class="modal-body">
+                  <embed  id="pdfFrame" [src]="url" frameborder="0" width="100%" height="400px">
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>

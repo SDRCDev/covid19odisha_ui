@@ -1,0 +1,54 @@
+<section class="reg-form">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-tab-group  (selectedTabChange)="mobile = undefined; touchedField=false; vrService.termAgree=false">
+          <mat-tab label="{{app.langSelection == 1?'Individual Registration':'ଏକକ ପଞ୍ଜିକରଣ '}}">
+            <div class="row status-check">
+              <div class="col-md-12">
+                <p>{{app.langSelection == 1?'Check your registration status by providing the registered mobile number':'ନିଜର ମୋବାଇଲ ନମ୍ବର ଦେଇ ନିଜର ପଞ୍ଜିକରଣର ସ୍ଥିତି ପରଖି ନିଅନ୍ତୁ '}}</p>
+              </div>
+              <div class="selection-fields col-md-6">
+                <label for="usr" class="label-heads">{{app.langSelection == 1?'Mobile Number':'ମୋବାଇଲ ନମ୍ବର'}}<span style="color:red; font-weight:500;">*</span> :</label>
+                <mat-form-field>
+                  <input matInput name="mobile" onlyNumber type="text" (blur)="touchedField = true" [(ngModel)]="mobile">
+                  <div class="mat-error err-msg" *ngIf="!(mobile && mobile.length == 10) && touchedField">
+                    Please enter a valid 10 digit mobile number
+                  </div>
+                </mat-form-field>
+              </div>
+              <div class="selection-fields col-md-6">
+                <button class="btn btn-default status-submit" type="submit" (click)="(mobile && mobile.length == 10) ? getRegistrationStatus(): touchedField=true">{{app.langSelection == 1? 'Check Status' : ' ଯାଞ୍ଚ କରନ୍ତୁ'}}</button>
+              </div>
+
+            </div>
+
+        <app-individual-ragistration></app-individual-ragistration>
+      </mat-tab>
+      <mat-tab label="{{app.langSelection == 1?'Organizational Registration':'ଆନୁଷ୍ଠାନିକ ପଞ୍ଜିକରଣ'}}">
+        <div class="row status-check">
+          <div class="col-md-12">
+            <p>{{app.langSelection == 1?'Check your registration status by providing the registered mobile number':'ନିଜର ମୋବାଇଲ ନମ୍ବର ଦେଇ ନିଜର ପଞ୍ଜିକରଣର ସ୍ଥିତି ପରଖି ନିଅନ୍ତୁ '}}</p>
+          </div>
+          
+          <div class="selection-fields col-md-6">
+            <label for="usr" class="label-heads">{{app.langSelection == 1?'Mobile Number':'ମୋବାଇଲ ନମ୍ବର'}}<span style="color:red; font-weight:500;">*</span> :</label>
+            <mat-form-field>
+              <input matInput name="mobile" onlyNumber type="text" (blur)="touchedField = true" [(ngModel)]="mobile">
+              <div class="mat-error err-msg" *ngIf="!(mobile && mobile.length == 10) && touchedField">
+                Please enter a valid 10 digit mobile number
+              </div>
+            </mat-form-field>
+          </div>
+          <div class="selection-fields col-md-6">
+              <button class="btn btn-default status-submit" type="submit" (click)="(mobile && mobile.length == 10) ? getRegistrationStatus(): touchedField=true">{{app.langSelection == 1? 'Check Status' : ' ଯାଞ୍ଚ କରନ୍ତୁ'}}</button>
+          </div>
+        </div>
+        <app-organizational-ragistration></app-organizational-ragistration>
+      </mat-tab>
+      </mat-tab-group>
+      </div>
+    </div>
+
+  </div>
+</section>

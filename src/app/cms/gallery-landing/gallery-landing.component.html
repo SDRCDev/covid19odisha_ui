@@ -1,0 +1,118 @@
+<div class="container">
+  <div id="wrapper">
+    <div class="content">
+      <div class="col-md-12">
+        <h2 class="title-heading left-pad">{{app.langSelection==1? 'Gallery' : 'ଗ୍ୟାଲେରୀ'}}</h2>
+        <div class="col-md-12">
+          <nav>
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-image" role="tab" aria-controls="nav-home"
+                aria-selected="true">{{app.langSelection==1? 'Photographs' : ' ଫୋଟୋ'}}</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-video" role="tab" aria-controls="nav-profile"
+                aria-selected="false">{{app.langSelection==1? 'Videos' : ' ଭିଡିଓ'}}</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-image" role="tabpanel" aria-labelledby="nav-home-tab">
+              <div id="photos" class="tab-pane in active photos_display">
+                <div class="row row_first">
+                  <!-- <mdb-image-modal [modalImages]="images" type="margin"></mdb-image-modal> -->
+                  <div [hidden]="imageLength == 0" *ngFor="let category of images; let i = index;" class="col-lg-2 col-md-2 col-sm-2 col-xs-12 catagory animated"
+                    id="kp_day8" (click)="this.isImageGalleryOpen=true;openModal(i) ">
+                    <div class="sub-category-image">
+                      <a>
+                        <img [src]="category.url" class="photo-categories zoom" alt="{{category.caption}}">
+                      </a>
+                    </div>
+                    <div class="gal_txt">
+                      <p class="max-height" title="{{category.caption}}">{{category.caption}}</p>
+                    </div>
+                  </div>
+
+                  <!-- <div 
+                    class="col-lg-2 col-md-2 col-sm-2 col-xs-12 catagory animated" id="kp_day8"
+                    (click)="this.isImageGalleryOpen=true;openModal() ">
+                    <div class="sub-category-image">
+                      <a>
+                        <img src="../assets/images/covid-19-banner1.jpg" class="photo-categories zoom" alt="test-img">
+                      </a>
+                    </div>
+                    <div class="gal_txt">
+                      <p class="max-height" title="test-img">test-img</p>
+                    </div>
+                  </div> -->
+
+                </div>
+                <!-- <pagination-controls class="pagination" (pageChange)="p = $event"
+              *ngIf="staticService.imageCategory.length > 12"></pagination-controls> -->
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-video" role="tabpanel" aria-labelledby="nav-home-tab">
+              <div id="videos" class="tab-pane in active photos_display">
+                <div class="row row_first">
+                  <!-- <mdb-image-modal [modalImages]="images" type="margin"></mdb-image-modal> -->
+                  <div *ngFor="let category of videos; let i = index;" class="col-lg-2 col-md-2 col-sm-2 col-xs-12 catagory animated" id="kp_day8"
+                    (click)="openVideoModal(category.videoLink) ">
+                    <div class="sub-category-image">
+                      <a>
+                        <img [src]="'https://img.youtube.com/vi/'+ getIdFromVideoLink(category.videoLink) +'/0.jpg'" class="photo-categories zoom"
+                          alt="{{category.caption}}">
+                      </a>
+                    </div>
+                    <div class="gal_txt">
+                      <p class="max-height" title="{{category.caption}}">{{category.caption}}</p>
+                    </div>
+                  </div>
+                  <!-- <div  class="col-lg-2 col-md-2 col-sm-2 col-xs-12 catagory animated" id="kp_day8"
+                  (click)="openVideoModal('https://www.youtube.com/watch?v=qVTAB8Z2VmA') ">
+                  <div class="sub-category-image">
+                    <a>
+                      <img [src]="'https://img.youtube.com/vi/'+ getIdFromVideoLink('https://www.youtube.com/watch?v=qVTAB8Z2VmA') +'/0.jpg'"
+                        class="photo-categories zoom" >
+                    </a>
+                  </div>
+                  <div class="gal_txt">
+                    <p class="max-height" title="test">test</p>
+                  </div>
+                </div> -->
+
+                </div>
+                <!-- <pagination-controls class="pagination" (pageChange)="p = $event"
+                *ngIf="staticService.imageCategory.length > 12"></pagination-controls> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-12" [hidden]="(staticService.imageCategory).length != 0">
+        <h4 class="text-center no-data-found">No Image Found</h4>
+      </div>
+      <div class="col-md-12" *ngIf="imageLength == 0">
+        <h4 class="text-center no-data-found">No Image Found</h4>
+      </div> -->
+    </div>
+  </div>
+  <div class="blank-height">
+  </div>
+  <ngx-image-gallery #ngxImageGallery [hidden]="!isImageGalleryOpen" id="ngxalbum" [images]="images" [conf]="conf" (onOpen)="galleryOpened($event)"
+    (onClose)="galleryClosed(); " (onImageClicked)="openGallery($event)" (onImageChange)="galleryImageChanged($event)">
+  </ngx-image-gallery>
+
+
+</div>
+<div class="modal fade" id="videoModal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="col-md-12 text-center video-fn m-auto">
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe id="videoIframe" height="360" width="640" frameborder="0" allowfullscreen></iframe>
+            <!-- <iframe width="560" height="315" [src]="selectedStoryDetails.videoLink" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+          </div>
+        </div>
+        <button type="button" class="close video-modal-close" (click)="hideVideoModal()" data-dismiss="modal">&times;</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+.message-box{
+    margin-bottom: 10px;
+}
+.success{
+    text-align: center;
+    color:#41C484;
+    margin: 0 0 5px;
+}
+.mat-dialog-content{
+    text-align: center !important;
+    background-color: aliceblue;
+    padding-top: 10px;
+}
+.term-heading {
+    border-bottom: 1px solid #CCC;
+    font-weight: bold;
+    font-size: 13px;
+}
+.check {
+    margin-bottom: 10px;
+}
+ul.term-list {
+    padding-left: 15px;
+    text-align: left;
+}
+
+ul.term-list li {
+    margin-bottom: 10px;
+    // list-style: decimal;
+}

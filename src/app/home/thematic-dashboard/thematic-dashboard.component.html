@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 headings">
+            <h5>Volunteer Dashboard</h5>
+            <!-- <h5>Dashboard</h5> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 left-pan">
+            <div class="tab-group">
+                <div class="left-tabs" (click)="selectTabs(tab)" [ngClass]="{'selected': tab.formId==selectedTab.formId}" *ngFor="let tab of dashboardLeftPanelData; let i=index">
+                    {{tab.label}}
+                </div>
+            </div>
+            <div class="leftpan-options">
+                <div class="leftpan-sec" [ngClass]="{'selected': opt.path == selectedOption.path && opt.typeDetailId == selectedOption.typeDetailId}" (click)="selectTabOption(opt)" *ngFor="let opt of selectedTab?.options | sortPipe:'slugId'; let j=index">
+                    <h4>{{opt.value ? opt.value: 0}}</h4>
+                    {{opt.name }}
+                </div>
+            </div>         
+        </div>
+        <div class="col-md-9">
+            <div class="asOnText" *ngIf="!blockLevelView">As on Date {{myDate}} </div>
+            <div class="asOnText" *ngIf="!blockLevelView"  style="margin-top: 20px; font-size: 12px;" >Click on district to view block/city level data.</div>
+            <section class="map-view" id="map-view" *ngIf="!blockLevelView">
+                <div id="map">
+                    <div class="map_popover">
+                        <div id="map_popover_content" class="map_popover_content"></div>
+                    </div>
+                    <div *ngIf="thematicData" [mapData]="mapData"></div>
+                </div>
+            </section>
+            <section class="table-view" id="table-view" *ngIf="blockLevelView && blockLevelData">
+                <h5 class="dist-name">District:
+                    <span>{{selectedDistrict.areaName}}</span>
+                    <div style="font-size: 11px; float: right;" *ngIf="blockLevelView" >* Shows the number of volunteers registered at block/city level only</div>
+                </h5>
+                <div class="table-responsive tableData">
+                    <table class="table block-table">
+                        <thead>
+                            <tr>
+                                <th *ngFor="let col of blockLevelData.tableColumn; let i=index">{{(col=='volunteers' || col == 'Volunteers') ? '* Volunteers' : col | labelFromKey}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of blockLevelData.tableData | sortPipe:'areaId'; let i=index">
+                                <td *ngFor="let col of blockLevelData.tableColumn; let j=index">{{row[col]}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="nodata" *ngIf="blockLevelData.tableData.length==0">No volunteers registered at block level</div>
+                <div class="state-view-btn" *ngIf="blockLevelView">
+                    <button class="back-state" (click)="backToStateView()">
+                     <i class="fa fa-angle-double-left backto" aria-hidden="true"></i>&nbsp; Back to State Level 
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

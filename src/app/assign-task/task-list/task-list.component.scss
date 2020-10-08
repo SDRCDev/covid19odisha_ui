@@ -1,0 +1,198 @@
+@import "../../color.scss";
+
+mat-tab-group {
+    margin-top: 75px;
+}
+.title-heading {
+    border-bottom: 1px solid #333;
+    font-size: 20px;
+}
+.user-table-header {
+  background: #29af8a;
+  color: #fff;
+  border-right: 2px solid #fff;
+}
+.user-table-column { 
+  padding: 8px;
+  text-align: center;
+  min-width: 135px;
+}
+.table td {
+    padding: 5px;   
+    vertical-align: middle;
+}
+#myInput {
+    width: 100%;
+    border-radius: 0;
+    padding: 12px 20px 12px 10px !important;
+    margin-bottom: 8px;
+    box-shadow: 0px 0px 2px 0px;
+    font-size: 15px;
+    height: 34px;
+    font-style:italic;
+}
+.table-btn.search .form-group{
+    position: relative;
+    margin-bottom: 0px !important; 
+    padding-right: 6px;
+    float: right;
+}
+.table-btn.search .form-group:before {
+    position: absolute;
+    font-family: 'FontAwesome';
+    top: 5px;
+    right: 25px;
+    color: #9c9c9c;
+    content: "\f002";
+}
+.no-data{    
+    font-size: 24px;
+    font-style: italic;
+}
+.td-minWidth{
+    width: 195px !important;
+    text-align: center !important;
+}
+.iconImg{
+    margin-right:10px;
+    cursor: pointer; 
+}
+.close{
+    margin-top: -15px;
+    margin-right: -5px;
+}
+.taskAssigned {
+    background-color: #c8ffe8;
+}
+.deactive{
+    background-color: #d6d1cf;
+}
+img.close-icon {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    z-index: 99999;
+    cursor: pointer;
+}
+.table-filter{
+    float: right;
+    text-align: center;
+    margin-right: -35px;
+    margin-top: 2px;
+}
+.table-filter span{
+    padding-right: 2px;
+    padding-top:2px;
+}
+.sub-photo-gallery-head {
+    margin-left: -5px;
+    font-size: 14px;
+    padding-top: 15px;
+    color: #1f497b;
+    cursor: pointer;
+}
+.back-arrow {
+    margin-right: 5px;
+}
+.hover-underline:hover{
+    text-decoration: underline;
+}
+.selection-fields{
+    margin-bottom: 15px;
+}
+.assignTaskLink{
+    float: right;
+    text-align:center;
+    padding-right: 0px;
+}
+.assignTakHeading{
+    font-size: 16px;
+    cursor: pointer;
+    margin: auto;
+    padding: 7px;
+    margin-top: 2px;
+    margin-right: -10px;
+    background: #29af8a;
+    color: #fff;
+    border-radius: 4px;
+    width: 145px;
+}
+.taskform{
+    margin-bottom: 20px;
+}
+.user-submit{
+    margin-bottom: 0px;
+}
+.mat-checkbox{
+    cursor: default;
+}
+.disable-fields{
+    display: inline;
+}
+
+
+/**media query starts here **/
+@media screen and (max-width: 992px){
+    .table-filter{
+        // text-align: right;
+        margin-right:-30px;
+    }
+    .assignTaskLink{
+        margin-right: 10px;
+    }
+    .sub-photo-gallery-head{
+        width:175px;
+    }
+}
+@media screen and (max-width: 991px){
+    .assignTaskLink{
+        margin-right: 45px;
+    }
+    .table-filter{
+        // text-align: right;
+        margin-right:-14px;
+    }
+}
+@media screen and (max-width: 767px){
+   .question-row{
+       margin-top: 0px;
+    }
+    .content-sec{
+      margin: auto;
+      left: 0px;
+    }
+    img.close-icon{
+        top: 5px;
+        right: 15px;
+        position: fixed;
+    }
+    .table-filter{
+        text-align: right;
+        margin-right:-25px;
+        margin-top: 10px;
+    }
+    .filter-modal {
+        z-index: 9999;
+        height: 100%;
+        top: 0;
+    }
+    .assignTaskLink{
+        margin-right: 0px;
+    }
+    
+}
+
+@media screen and (max-width: 580px){
+    .table-filter{
+        margin-right:-20px;
+        margin-top:0px;
+    }
+    .sub-photo-gallery-head{
+        position: absolute;
+        padding-top: 42px;
+        z-index: 1;
+    }
+    .assignTaskLink{
+        padding-right: 15px;
+    }
+}

@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+          <h4 (click)="backClicked()" class="sub-photo-gallery-head hover-underline">
+              <img class="back-arrow" src="./assets/images/back-arrow.png">Back to Gallery</h4>       
+      <div class="col-md-12" >
+          <h2 class="title-heading left-pad">Gallery</h2>
+          <p class="bestpraticeshead-head-line"></p>
+          <div>
+            <!-- <p>Published On: {{staticService.whatsNewCategory.publishedDate}}</p> -->
+            <p style="font-weight:bold">{{selectedResourceDetails.caption}}</p>
+            <div *ngFor="let file of selectedResourceDetails.filepathCaptionModel" >
+              <div class="text-center" *ngIf="file.base64">
+              <img [src]="file.base64" width="100%" class="preview-image">
+            </div>
+            <div class="text-center img-name" >
+                <a class="file-title-block fileSize">{{file.filepath}}</a>&nbsp;
+              </div>
+                <!-- <span class="hover-underline">
+                <a class="preview-text" (click)="downloadFiles(selectedResourceDetails.filepathCaptionModel[0].filepath)" title="Download PDF">
+                  <i class="fa fa-download downloaded-icon cursor-point" aria-hidden="true"></i>
+                  
+                </a>  -->
+              <!-- <span (click)="downloadFiles(selectedResourceDetails.filepathCaptionModel[0].filepath)"
+              class="download-file cursor-point">Download</span>
+              </span> -->
+            </div>
+              <div class="col-md-6 offset-md-3 text-center video-fn m-auto" *ngIf="selectedResourceDetails.galleryType == 'Video Gallery'">
+                  <div class="embed-responsive embed-responsive-16by9">
+                      <iframe id="videoIframe" height="360" width="640" frameborder="0" allowfullscreen></iframe>
+                    <!-- <iframe width="560" height="315" [src]="selectedStoryDetails.videoLink" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                  </div>
+              </div>
+            
+          <a target="_blank" *ngIf="selectedResourceDetails.link != '' && selectedResourceDetails.link != undefined " href="{{staticService.whatsNewCategory.link}}">Link to news content</a>
+          <img class="news-link-add-image" (click)="showImage()" title="Click to open image" 
+          *ngIf="selectedResourceDetails.imageName !='' && selectedResourceDetails.imageName !=undefined "
+          [src]= "gateway +'downloadCmsDoc?fileName='+selectedResourceDetails.imageName+'&inline='+true"   /> &nbsp;
+          <!-- <span class="imageTumbnail" *ngIf="staticService.whatsNewCategory.imageName !='' && staticService.whatsNewCategory.imageName !=undefined" (click)="previewImage()"> Click to preview image</span> -->
+          </div>
+        </div>
+  </div>
+</div>

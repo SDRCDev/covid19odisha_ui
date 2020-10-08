@@ -1,0 +1,26 @@
+<div class="page-details">
+    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#navbarCMS"
+    aria-controls="navbarCMS" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fa fa-bars" aria-hidden="true" style="padding: 2px 5px;"></i>
+  </button>
+  <div class="cms-heading">Content Management System</div>
+</div>
+<div class="collapse navbar-collapse show-md" id="navbarCMS">
+  <ul class="data-heads">
+    <li class="data-head-list" [ngClass]="{'active': router.url == '/gallery-upload'}">
+      <span class="list-span">&#10095;&nbsp;
+        <a routerLink="/gallery-upload"> {{app.langSelection==1? 'Gallery' :' ଗ୍ୟାଲେରୀ'}}  </a>
+      </span>
+    </li>
+    <li class="data-head-list" [ngClass]="{'active': router.url == '/resources'}">
+      <span class="list-span">&#10095;&nbsp;
+        <a routerLink="/resources"> {{app.langSelection==1? 'Resources' :' ସାଧନ'}}  </a>
+      </span>
+    </li>
+    <li class="data-head-list" [ngClass]="{'active': router.url == '/important-links'}">
+      <span class="list-span">&#10095;&nbsp;
+        <a routerLink="/important-links"> {{app.langSelection==1? 'Important Links' :' ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ଲିଙ୍କ୍'}}</a>
+      </span>
+    </li>
+  </ul>
+</div>

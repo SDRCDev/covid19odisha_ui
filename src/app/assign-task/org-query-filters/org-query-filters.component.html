@@ -1,0 +1,142 @@
+<div class="container-fluid">
+  <div class="row parent-container">
+
+    <div class="col-md-3 left-filter-menus">
+      <ul class="tab-menu-container">
+     
+        <li class="tab-menu" (click)="selectLeftTab('location')" [ngClass]="{'active': selectedLeftTab == 'location', 'filter-added': taskService.filters.areaLevel || taskService.filters.districts?.length}">
+          Location of Service</li>
+          <li class="tab-menu" (click)="selectLeftTab('serviceType')"
+          [ngClass]="{'active': selectedLeftTab == 'serviceType', 
+          'filter-added': taskService.filters?.serviceType}">
+          Type of Service</li>
+          <li class="tab-menu" (click)="selectLeftTab('timeperiod')"
+          [ngClass]="{'active': selectedLeftTab == 'timeperiod', 'filter-added': taskService.filters?.fromDate || taskService.filters?.toDate}">Time Period</li>
+        <li class="tab-menu" (click)="selectLeftTab('taskStatus')"
+          [ngClass]="{'active': selectedLeftTab == 'taskStatus', 'filter-added': taskService.filters?.isTaskAssigned != undefined}">Task Status</li>
+      </ul>
+      <button class="btn btn-default filter-submit" type="submit" (click)="ApplyFilter()"> Submit </button>
+      <button class="btn btn-default filter-submit" type="submit" (click)="resetAll()">Reset</button>
+    </div>
+    <div class="col-md-9 right-filter-questions">
+  
+      <section class="filter-container row" *ngIf="selectedLeftTab == 'location'">
+        <div class="selection-fields col-md-12">
+          <div class="sub-questions row">
+            <div class="subq col-md-6">
+              <label for="usr">Area of Service :</label>
+              <mat-form-field>
+                <mat-select  [(ngModel)]="taskService.filters.areaLevel"
+                (selectionChange)="taskService.filters.preferredState=undefined; taskService.filters.preferredDistrict=undefined; taskService.filters.preferredBlock=undefined;
+                 allPreferredDistricts = []; allPreferredBlocks =[]">
+                  <mat-option *ngFor="let opt of allOptions['Preferred area of service']" [value]="opt">
+                    {{opt.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            
+            <div class="subq col-md-6" [ngClass]="{'dnone': !(taskService.filters?.areaLevel?.slugId != 105)}">
+              <label for="usr">District :</label>
+              <mat-form-field>
+                <mat-select [(ngModel)]="taskService.filters.preferredDistrict"
+                (selectionChange)="getPreferredBlocks(4, taskService.filters.preferredDistrict)" [required]="taskService.filters?.areaLevel?.slugId != 105"
+                *ngIf="taskService.filters?.areaLevel?.slugId != 106">
+                  <mat-option *ngFor="let opt of taskService.allPreferredDistricts | sortBy : 'areaName'" [value]="opt.areaId">
+                    {{opt.areaName}}</mat-option>
+                </mat-select>
+                <mat-select [(ngModel)]="taskService.filters.preferredDistrict" [required]="taskService.filters?.areaLevel?.slugId != 105" multiple
+                *ngIf="taskService.filters?.areaLevel?.slugId == 106">
+                <mat-select-trigger>
+                  {{taskService.filters.preferredDistrict && taskService.filters.preferredDistrict.length ? getObjectByKey('areaId', taskService.filters.preferredDistrict[0],
+                    taskService.allPreferredDistricts).areaName : ''}}
+                  <span *ngIf="taskService.filters.preferredDistrict?.length > 1" >
+                    (+{{taskService.filters.preferredDistrict?.length - 1}} {{taskService.filters.preferredDistrict ?.length === 2 ? 'other' : 'others'}})
+                  </span>
+                </mat-select-trigger>
+                  <mat-option *ngFor="let opt of taskService.allPreferredDistricts | sortBy : 'areaName'" [value]="opt.areaId">
+                    {{opt.areaName}}</mat-option>
+                </mat-select>
+         
+              </mat-form-field>
+            </div>
+            <div class="subq col-md-6" [ngClass]="{'dnone':!(taskService.filters?.areaLevel?.slugId != 105 && taskService.filters?.areaLevel?.slugId != 106)}">
+              <label for="usr">Block/City :</label>
+              <mat-form-field>
+                <mat-select [required]="taskService.filters?.areaLevel?.slugId != 105 && taskService.filters?.areaLevel?.slugId != 106" [(ngModel)]="taskService.filters.preferredBlock" *ngIf="taskService.filters?.areaLevel?.slugId != 107">
+                  <mat-option *ngFor="let opt of taskService.allPreferredBlocks | sortBy : 'areaName'" [value]="opt.areaId">
+                    {{opt.areaName}}</mat-option>
+                </mat-select>
+                <mat-select [required]="taskService.filters?.areaLevel?.slugId != 105 && taskService.filters?.areaLevel?.slugId != 106" [(ngModel)]="taskService.filters.preferredBlock" multiple *ngIf="taskService.filters?.areaLevel?.slugId == 107">
+                  <mat-select-trigger>
+                    {{taskService.filters.preferredBlock && taskService.filters.preferredBlock.length ? getObjectByKey('areaId', taskService.filters.preferredBlock[0],
+                    taskService.allPreferredBlocks).areaName : ''}}
+                    <span *ngIf="taskService.filters.preferredBlock?.length > 1" >
+                      (+{{taskService.filters.preferredBlock?.length - 1}} {{taskService.filters.preferredBlock ?.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let opt of taskService.allPreferredBlocks | sortBy : 'areaName'" [value]="opt.areaId">
+                    {{opt.areaName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="filter-container row" *ngIf="selectedLeftTab == 'serviceType'">
+        <!-- <div class="col-md-6">
+          <label for="usr" class="label-heads">Type Of Service :</label>
+          <mat-form-field>
+            <mat-select [(ngModel)]="selectedServiceCategories" multiple>
+              <mat-option *ngFor="let opt of allOptions.serviceTypes" [value]="opt.slugId">
+                {{opt.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+        <div class="selection-fields col-md-6">
+          <label for="usr" class="label-heads">Types of service :</label>
+          <mat-form-field>
+            <mat-select [(ngModel)]="taskService.filters.serviceType">
+              <mat-option *ngFor="let opt of allOptions['Types of service offered']" [value]="opt.slugId">
+                {{opt.name}}</mat-option>
+            </mat-select>
+       
+          </mat-form-field>
+        </div>
+
+      </section>
+
+      <section class="filter-container row" *ngIf="selectedLeftTab == 'timeperiod'">
+        <div class="col-md-6">
+          <label for="usr">From Date :</label>
+          <mat-form-field>
+            <input matInput readonly [matDatepicker]="picker1" name="fromDate" [min]="minDate" [max]="taskService.filters.toDate || todayDate"
+              [(ngModel)]="taskService.filters.fromDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <label for="usr">To Date :</label>
+          <mat-form-field>
+            <input matInput readonly [matDatepicker]="picker2" name="toDate" [min]="taskService.filters.fromDate || minDate" [max]="todayDate"
+              [(ngModel)]="taskService.filters.toDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+        
+      </section>
+      <section class="filter-container row" *ngIf="selectedLeftTab == 'taskStatus'">
+        <div class="subq col-md-12">
+          <label for="usr" class="radio-label label-heads">Already task assigned? </label>
+        <mat-radio-group [(ngModel)]="taskService.filters.isTaskAssigned">
+          <mat-radio-button *ngFor="let opt of isTaskAssignedOptions" [value]="opt.value" class="pr-2">
+            {{opt.label}}
+          </mat-radio-button>
+        </mat-radio-group>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

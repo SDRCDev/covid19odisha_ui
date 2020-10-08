@@ -1,0 +1,28 @@
+
+<section class="otp-form">
+
+<div class="prompt">
+	OTP sent to your mobile number, please verify to complete registration process.
+	<div><a class="resend-otp" (click)="resendOTP()">Resend OTP</a></div>
+</div>
+
+<form class="digit-group" data-group-name="digits" [formGroup]="sdrcForm" #f="ngForm" name="form" data-autosubmit="false" autocomplete="off">
+	<input type="number" otpbox formControlName="digit1" [(ngModel)]="digit1" (keyup)="nextBox($event)" id="digit-1" name="digit-1" data-next="digit-2" />
+	<input type="number" otpbox  formControlName="digit2" [(ngModel)]="digit2" (keyup)="nextBox($event)" id="digit-2" name="digit-2" data-next="digit-3" data-previous="digit-1" />
+	<input type="number" otpbox  formControlName="digit3" [(ngModel)]="digit3" (keyup)="nextBox($event)" id="digit-3" name="digit-3" data-next="digit-4" data-previous="digit-2" />
+	<span class="splitter">&ndash;</span>
+	<input type="number" otpbox   formControlName="digit4" [(ngModel)]="digit4" (keyup)="nextBox($event)" id="digit-4" name="digit-4" data-next="digit-5" data-previous="digit-3" />
+	<input type="number" otpbox   formControlName="digit5" [(ngModel)]="digit5" (keyup)="nextBox($event)" id="digit-5" name="digit-5" data-next="digit-6" data-previous="digit-4" />
+	<input type="number" otpbox  formControlName="digit6" [(ngModel)]="digit6" (keyup)="nextBox($event)" id="digit-6" name="digit-6" data-previous="digit-5" />
+	<div class="col-md-12" style="margin-top: 30px;">
+        <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha" required>
+        </ngx-recaptcha2>
+        <mat-error class="err"
+                    *ngIf="sdrcForm['controls']['recaptcha']?.errors?.required && (sdrcForm['controls']['recaptcha']?.touched)">
+                </mat-error>
+      </div>
+	<div class="form-group col-md-12 mt-btn text-center">
+		<button class="btn btn-default proceed-btn user-submit" [disabled]="sdrcForm['controls']['recaptcha']?.errors?.required" (click)="verify(f)" type="submit">Verify</button>
+	  </div>
+</form>
+</section>

@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row">
+        <!-- <h4 (click)="redirectTousefullink()" class="sub-photo-gallery-head hover-underline">
+            <img class="back-arrow" src="./assets/icons/back-arrow.png">Back to What's new</h4> -->
+        <div class="col-md-12 padding-top">
+            <h2 class="title-heading left-pad">{{app.langSelection==1? 'Important Links' :'  ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ଲିଙ୍କ୍'}}</h2>
+            <!-- <h2 class="title-heading left-pad" *ngIf="app.langSelection==2">ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ଲିଙ୍କ୍</h2> -->
+            <div class="col-md-3 searchData inner-addon right-addon">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <input type="text" [(ngModel)]="searchTexts" class="form-control" placeholder="Search" />
+            </div>
+            <div class="col-md-12 table-content">
+                <!-- <div class="table-btn search">
+                  <div class="col-md-3 form-group">
+                    <input class="form-control" type="text" id="myInput" [(ngModel)]="searchTexts" placeholder="Search"
+                      maxlength="100" />
+                    <span *ngIf="searchTexts" class="search-close" (click)="searchFilter = ''">
+                    </span>
+                  </div>
+                </div> -->
+              <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead style="border-bottom: 5px solid #fff;">
+                      <tr>
+                        <th class="oddTabelHead td-minWidth text-center">SL No.</th>
+                        <th class="oddTabelHead td-minWidth text-center">Title</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let item of staticService.usefulData | searchText : searchTexts | paginate: { itemsPerPage: itemsPerPage, currentPage: p } ; let i = index;">
+                        <td class="text-center">{{i + 1}}</td>
+                        <td class="text-left"><a href="{{item.url}}" target="_blank">{{item.title}}</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </div>
+                  <div
+                    *ngIf="(staticService.usefulData && !staticService.usefulData.length) || (staticService.usefulData && staticService.usefulData.length && (staticService.usefulData | searchText : searchTexts).length==0)"
+                    class="col-md-12 text-center no-data">No Data Found.
+                  </div>
+                  <div class="col-md-12 pagination-margin"
+            *ngIf="(staticService.usefulData && staticService.usefulData.length && (staticService.usefulData | searchText : searchTexts).length)">
+            <!-- <pagination-controls (pageChange)="p = $event;" class="pagination"></pagination-controls> -->
+            </div>
+            </div>
+          </div>
+          <!-- <div class="col-md-12 short-description">{{staticService.contentData.viewType}}</div>  -->
+    </div>
+    <div class=" blank-height">
+    </div>

@@ -1,0 +1,653 @@
+<div class="reg-field-container" *ngIf="allOptions">
+  <form class="table-div mdm-border row" [formGroup]="sdrcForm" (ngSubmit)=" f.valid && profilePic? submit(f, sdrcForm):scrollToError()"
+    name="form" #f="ngForm">
+    <div class="col-md-12 term-check" *ngIf="app.langSelection == 1">
+      Please read and agree with the
+      <a class="term-condition-link" (click)="openTermConditionDialog()">terms and conditions</a>
+      <span style="color:red; font-weight:500;">*</span> before proceeding further.
+    </div>
+
+    <div class="col-md-12 term-check" *ngIf="app.langSelection == 2">
+      ଆଗକୁ ଯିବା ପୂର୍ବରୁ
+      <a class="term-condition-link" (click)="openTermConditionDialog()"> ନିୟମ ଓ ସର୍ତ୍ତାବଳି </a>
+      <span style="color:red; font-weight:500;">*</span> ପଢି ତାକୁ ଅନୁମୋଦନ କରନ୍ତୁ 
+    </div>
+
+    <div class="selection-fields col-md-6">
+      <div class="row">
+
+        <div class="col-sm-3">
+          <label for="usr" class="label-heads">{{app.langSelection == 1 ? '1. Salutation' : '୧. ସମ୍ବୋଧନ'}}
+            <span style="color:red; font-weight:500;">*</span> :</label>           
+          <mat-form-field appearance="none">
+            <mat-select formControlName="salutation">
+              <mat-option *ngFor="let opt of dropdownOptionsMap.salutation" [value]="opt.value">
+                {{opt.value}}</mat-option>
+            </mat-select>
+            <mat-error class="padding-bottom">
+              {{sdrcForm.controls['salutation']?.errors?.required ? '': ''}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-9">
+          <label for="usr" class="label-heads">{{app.langSelection == 1 ? '2. Full Name' : '୨. ପୁରା ନାମ'}}
+            <span style="color:red; font-weight:500;">*</span> :</label>          
+          <mat-form-field>
+            <input matInput formControlName="fullName" trimActive [form]="sdrcForm" name="fullName" [(ngModel)]="regForm.fullName">
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['fullName']?.errors?.pattern ? 'pattern':'Please provide new full name'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="selection-fields col-md-6">
+      <label for="usr" class="label-heads">{{app.langSelection == 1 ? '3. Email ID' : '୩.  ଇ ମେଲ '}} :</label>
+      <mat-form-field>
+        <input matInput name="email" formControlName="email" [(ngModel)]="regForm.email">
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['email']?.errors?.pattern ? 'Provided Email ID is incorrect':'Please provide Email ID'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="selection-fields col-md-6">
+      <label for="usr" class="label-heads">{{app.langSelection == 1 ? '4. Mobile Number' : '୪. ମୋବାଇଲ ନମ୍ବର'}}
+        <span style="color:red; font-weight:500;">*</span> :</label>     
+      <mat-form-field>
+        <input matInput name="mobile" onlyNumber formControlName="mobile" (change)="check(sdrcForm)" [(ngModel)]="regForm.mobile">
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['mobile']?.errors?.pattern ? 'Mobile no should be 10 digit':'Please provide mobile number'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="selection-fields col-md-6">
+      <label for="usr" class="label-heads">{{app.langSelection == 1 ? '5. Alternative Mobile Number' : '୫. ବିକଳ୍ପ ମୋବାଇଲ ନମ୍ବର'}} :</label>
+      <mat-form-field>
+        <input matInput name="altMobile" onlyNumber formControlName="altMobile">
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['altMobile']?.errors?.pattern ? 'Mobile no should be 10 digit':'Please provide alternate mobile number'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="selection-fields col-md-6">
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="usr" class="label-heads">{{app.langSelection == 1 ? '6. Gender' : '୬. ଲିଙ୍ଗ'}}
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <mat-select formControlName="sex">
+              <mat-option *ngFor="let opt of allOptions.Gender" [value]="opt.slugId">
+                {{opt.name}}</mat-option>
+            </mat-select>
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['sex']?.errors?.pattern ? 'pattern':'Please provide gender'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-8">
+          <label for="usr" class="label-heads">{{app.langSelection == 1 ? '7. Date of Birth' : '୭. ଜନ୍ମ ତାରିଖ'}}
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <input matInput readonly [matDatepicker]="picker" name="dob" [min]="getPrevYrDate(70)" [max]="getPrevYrDate(18)" [(ngModel)]="regForm.dob"
+              formControlName="dob">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['dob']?.errors?.pattern ? 'pattern':'Please provide date of birth'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="selection-fields col-md-6">
+      <div class="row">
+        <div class="col-sm-6 col-lg-9">
+          <label for="usr" class="radio-label label-heads mb-0">{{app.langSelection == 1 ? '8. Profile photo' : '୮. ନିଜର ଫୋଟୋ '}}
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <div class="hint-text mb-2" *ngIf="app.langSelection == 1">Image size should be less than 3MB. Supported file types are png/jpg/jpeg.</div>
+          <div class="hint-text mb-2" *ngIf="app.langSelection == 2">(ଯାହା ୩ MB ରୁ କମ ଏବଂ png , jpg /jpeg ଫାଇଲ ହୋଇ ଥିବ)</div>
+          <input id="profilePic" class="upload-banner" accept="image/*" type="file" name="profilePic" (change)="fileUpload($event)"
+            title=" " #newPhoto>
+
+          <mat-error class="padding-bottom uploadErr" *ngIf="!profilePicSelected && checkedProfilePic">
+            {{'Please upload profile photo'}}
+          </mat-error>
+          <mat-error class="padding-bottom uploadErr" *ngIf="!(!profilePicSelected && checkedProfilePic) && fileValidationMessage">
+            {{fileValidationMessage}}
+          </mat-error>
+        </div>
+        <div class="col-sm-6 col-lg-3 text-right" style="padding-right: 30px;">
+          <img src="{{profilePic || 'https://748073e22e8db794416a-cc51ef6b37841580002827d4d94d19b6.ssl.cf3.rackcdn.com/not-found.png'}}"
+            class="photo-prev" width="100px" height="100px">
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="selection-fields col-md-12">
+      <label for="usr" class="label-heads">{{app.langSelection == 1 ? '9. Address' :'୯. ଠିକଣା'}}</label>
+      <div class="sub-questions row">
+
+        <div class="subq col-md-6">
+          <label for="usr">{{app.langSelection == 1 ? '9.1. Country' :' ୯.୧. ଦେଶ'}}
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <mat-select formControlName="country" [(ngModel)]="regForm.country" (ngModelChange)="regForm.country ? getAllStates(2, regForm.country.areaId):'';">
+              <mat-option *ngFor="let opt of allCountries" [value]="opt">
+                {{opt.areaName}}</mat-option>
+            </mat-select>
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['country']?.errors?.pattern ? 'pattern':'Please select country'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">{{app.langSelection == 1 ? '9.2. State' :' ୯.୨. ରାଜ୍ୟ'}}
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <mat-select formControlName="state" [(ngModel)]="regForm.state" (ngModelChange)="regForm.state? getAllDistricts(3, regForm.state.areaId):''">
+              <mat-option *ngFor="let opt of allStates" [value]="opt">
+                {{opt.areaName}}</mat-option>
+            </mat-select>
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['state']?.errors?.pattern ? 'pattern':'Please select state'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">{{app.langSelection == 1 ? '9.3. District' :'୯.୩. ଜିଲ୍ଲା'}}
+            <span style="color:red; font-weight:500;">*</span> :</label>         
+          <mat-form-field>
+            <mat-select formControlName="district" [(ngModel)]="regForm.district" (selectionChange)="regForm.district ? getBlocks(4, regForm.district.areaId):''; regForm.district ? getPS(10, regForm.district.areaId):''">
+              <mat-option *ngFor="let opt of allDistricts | sortBy : 'areaName'" [value]="opt">
+                {{opt.areaName}}</mat-option>
+            </mat-select>
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['district']?.errors?.pattern ? 'pattern':'Please select district'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">{{app.langSelection == 1 ? '9.4. Block/City' :'୯.୪. ବ୍ଲକ / ସହର'}}
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <mat-select formControlName="block" [(ngModel)]="regForm.block">
+              <mat-option *ngFor="let opt of allBlocks | sortBy : 'areaName'" [value]="opt">
+                {{opt.areaName}}</mat-option>
+            </mat-select>
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['block']?.errors?.pattern ? 'pattern':'Please select block'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">{{app.langSelection == 1 ? '9.5. Police Station' :'୯.୫. ଥାନା'}} :</label> 
+          <mat-form-field>
+            <mat-select formControlName="ps" [(ngModel)]="regForm.ps">
+              <mat-option *ngFor="let opt of allPS | sortBy : 'areaName'" [value]="opt">
+                {{opt.areaName}}</mat-option>
+            </mat-select>
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['ps']?.errors?.pattern ? 'pattern':'Please provide police station name'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">{{app.langSelection == 1 ? '9.6. Locality/Colony' :'୯.୬. ସାହି / ପଡା/ କଲୋନୀ '}} :</label>           
+          <mat-form-field>
+            <input matInput name="locality" trimActive [form]="sdrcForm" formControlName="locality">
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['locality']?.errors?.pattern ? 'pattern':'Please provide locality/colony name'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">{{app.langSelection == 1 ? '9.7. Landmark' :'୯.୭. ଭୂଚିହ୍ନ'}} :</label>   
+          <mat-form-field>
+            <input matInput name="landmark" trimActive [form]="sdrcForm" formControlName="landmark">
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['landmark']?.errors?.pattern ? 'pattern':'Please provide landmark'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">{{app.langSelection == 1 ? '9.8. Pincode ' :'୯.୮. ପିନ କୋଡ଼'}} :</label>            
+          <mat-form-field>
+            <input matInput name="pincode" onlyNumber formControlName="pincode">
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['pincode']?.errors?.pattern ? 'Invalid pincode':'Please provide pincode'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="selection-fields col-md-12">
+      <label for="usr" class="label-heads" *ngIf="app.langSelection == 1">10. Preferred Location of Service</label>
+      <label for="usr" class="label-heads" *ngIf="app.langSelection == 2">୧୦. ସେବା କାର୍ଯ୍ୟ ନିମନ୍ତେ ପସନ୍ଦ ର ସ୍ଥାନ </label>
+      <div class="sub-questions row">
+        <div class="subq col-md-6">
+          <label for="usr" *ngIf="app.langSelection == 1">10.1. Area Level
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <label for="usr" *ngIf="app.langSelection == 2">୧୦.୧. ଅଞ୍ଚଳ ର ସ୍ଥର
+                <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <mat-select formControlName="areaLevel" [(ngModel)]="regForm.areaLevel">
+              <mat-option *ngFor="let opt of areaLevels" [value]="opt">
+                {{opt.areaLevelName}}</mat-option>
+            </mat-select>
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['aeaLevel']?.errors?.pattern ? 'pattern':'Please select area level'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr" *ngIf="app.langSelection == 1">10.2. District
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <label for="usr" *ngIf="app.langSelection == 2">୧୦.୨. ଜିଲ୍ଲା
+                <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <mat-select formControlName="preferredDistrict" (selectionChange)="regForm.preferredDistrict ? getPreferredBlocks(4, regForm.preferredDistrict.areaId): ''"
+              [(ngModel)]="regForm.preferredDistrict" *ngIf="regForm?.areaLevel?.areaLevelId != 1" required>
+              <mat-option *ngFor="let opt of allPreferredDistricts | sortBy : 'areaName'" [value]="opt">
+                {{opt.areaName}}</mat-option>
+            </mat-select>
+            <mat-select formControlName="preferredDistrict" [(ngModel)]="regForm.preferredDistrict" *ngIf="regForm?.areaLevel?.areaLevelId == 1"
+              required multiple>
+              <mat-select-trigger>
+                {{regForm.preferredDistrict && regForm.preferredDistrict.length ? regForm.preferredDistrict[0].areaName : ''}}
+                <span *ngIf="regForm.preferredDistrict?.length > 1">
+                  (+{{regForm.preferredDistrict?.length - 1}} {{regForm.preferredDistrict ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let opt of allPreferredDistricts | sortBy : 'areaName'" [value]="opt">
+                {{opt.areaName}}</mat-option>
+            </mat-select>
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['preferredDistrict']?.errors?.pattern ? 'pattern':'Please select preferred district'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6" [ngClass]="{'dnone':!(regForm?.areaLevel?.areaLevelId != 1)}">
+          <label for="usr" *ngIf="app.langSelection == 1">10.3. Block/City
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <label for="usr" *ngIf="app.langSelection == 2">୧୦.୩. ବ୍ଲକ/ସହର
+                <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <mat-select formControlName="preferredBlock" [required]="regForm?.areaLevel?.areaLevelId != 1" (selectionChange)="getPreferredGP(5, regForm.preferredBlock.areaId)"
+              [(ngModel)]="regForm.preferredBlock" *ngIf="regForm?.areaLevel?.areaLevelId != 2">
+              <mat-option *ngFor="let opt of allPreferredBlocks | sortBy : 'areaName'" [value]="opt">
+                {{opt.areaName}}</mat-option>
+            </mat-select>
+            <mat-select formControlName="preferredBlock" [required]="regForm?.areaLevel?.areaLevelId != 1" [(ngModel)]="regForm.preferredBlock"
+              *ngIf="regForm?.areaLevel?.areaLevelId == 2" multiple>
+              <mat-select-trigger>
+                {{regForm.preferredBlock && regForm.preferredBlock.length ? regForm.preferredBlock[0].areaName : ''}}
+                <span *ngIf="regForm.preferredBlock?.length > 1">
+                  (+{{regForm.preferredBlock?.length - 1}} {{regForm.preferredBlock ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let opt of allPreferredBlocks | sortBy : 'areaName'" [value]="opt">
+                {{opt.areaName}}</mat-option>
+            </mat-select>
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['preferredBlock']?.errors?.pattern ? 'pattern':'Please select preferred block'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6" [ngClass]="{'dnone': !(regForm?.areaLevel?.areaLevelId != 2 && regForm?.areaLevel?.areaLevelId != 1)}">
+          <label for="usr" *ngIf="app.langSelection == 1">10.4. Gram panchayat
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <label for="usr" *ngIf="app.langSelection == 2">୧୦.୪. ଗ୍ରାମ ପଞ୍ଚାୟତ
+                <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <mat-select formControlName="preferredGP" [required]="regForm?.areaLevel?.areaLevelId != 2 && regForm?.areaLevel?.areaLevelId != 1"
+              [(ngModel)]="regForm.preferredGP" multiple>
+              <mat-select-trigger>
+                {{regForm.preferredGP && regForm.preferredGP.length ? regForm.preferredGP[0].areaName : ''}}
+                <span *ngIf="regForm.preferredGP?.length > 1">
+                  (+{{regForm.preferredGP?.length - 1}} {{regForm.preferredGP ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let opt of allPreferredGP | sortBy : 'areaName'" [value]="opt">
+                {{opt.areaName}}</mat-option>
+            </mat-select>
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['preferredGP']?.errors?.pattern ? 'pattern':'Please select preferred GP'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="selection-fields col-md-6">
+      <label for="usr" class="label-heads" *ngIf="app.langSelection == 1">11. Educational Qualification (select highest completed)
+        <span style="color:red; font-weight:500;">*</span> :</label>
+      <label for="usr" class="label-heads" *ngIf="app.langSelection == 2">୧୧. ଶିକ୍ଷାଗତ ଯୋଗ୍ୟତା (ସର୍ବାଧିକ ଶିକ୍ଷାଗତ ଯୋଗ୍ୟତା କୁ ଚୟନ କରନ୍ତୁ )
+            <span style="color:red; font-weight:500;">*</span> :</label>
+      <mat-form-field>
+        <mat-select formControlName="qualification" [(ngModel)]="regForm.qualification" (selectionChange)="regForm.specification=undefined;regForm.experience=undefined;regForm.vocational=undefined;regForm.otherQualification=undefined">
+          <mat-option *ngFor="let opt of allOptions['Educational Qualification']" [value]="opt.slugId">
+            {{opt.name}}</mat-option>
+        </mat-select>
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['qualification']?.errors?.pattern ? 'pattern':'Please provide educational qualification'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="selection-fields col-md-6" *ngIf="regForm.qualification != 7 && regForm.qualification != 8">
+    </div>
+    <div class="selection-fields col-md-6" *ngIf="regForm.qualification == 7">
+      <label for="usr">Specification :</label>
+      <mat-form-field>
+        <mat-select formControlName="specification" [(ngModel)]="regForm.specification" (selectionChange)="regForm.healthCareProfessionals=undefined">
+          <mat-option *ngFor="let opt of allOptions.Professional" [value]="opt.slugId">
+            {{opt.name}}</mat-option>
+        </mat-select>
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['specification']?.errors?.pattern ? 'pattern':'Please provide specification'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="selection-fields col-md-6" *ngIf="regForm.qualification == 7">
+      <label for="usr">Number of years of experience in the profession :</label>
+      <mat-form-field>
+
+        <input matInput name="experience" onlyNumber formControlName="experience" [(ngModel)]="regForm.experience">
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['experience']?.errors?.pattern ? 'pattern':'Please provide experience in profession'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="selection-fields col-md-6" *ngIf="regForm.qualification == 8">
+      <label for="usr">Vocational :</label>
+      <mat-form-field>
+        <mat-select formControlName="vocational" [(ngModel)]="regForm.vocational">
+          <mat-option *ngFor="let opt of allOptions.Vocational" [value]="opt.slugId">
+            {{opt.name}}</mat-option>
+        </mat-select>
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['vocational']?.errors?.pattern ? 'pattern':'Please provide vocational'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="selection-fields col-md-6" *ngIf="regForm.specification == 87">
+      <label for="usr">Health Care Profession :</label>
+      <mat-form-field>
+        <mat-select formControlName="healthCareProfessionals" [(ngModel)]="regForm.healthCareProfessionals">
+          <mat-option *ngFor="let opt of allOptions['Health Care Professionals']" [value]="opt.slugId">
+            {{opt.name}}</mat-option>
+        </mat-select>
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['healthCareProfessionals']?.errors?.pattern ? 'pattern':'Please provide health care profession'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="selection-fields col-md-6" [ngClass]="{'dnone no-display':!(regForm?.qualification == 9)}">
+      <label for="usr" class="label-heads">Specify Qualification
+        <span style="color:red; font-weight:500;">*</span> :</label>
+      <mat-form-field>
+        <input matInput formControlName="otherQualification" [required]="regForm?.qualification == 9" trimActive [form]="sdrcForm"
+          name="otherQualification" [(ngModel)]="regForm.otherQualification">
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['otherQualification']?.errors?.pattern ? 'pattern':"Please specify your qualification"}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="selection-fields col-md-6">
+      <label for="usr" class="radio-label label-heads" *ngIf="app.langSelection == 1">11.1. Have you received any training related to COVID19?
+        <span style="color:red; font-weight:500;">*</span>
+      </label>
+      <label for="usr" class="radio-label label-heads" *ngIf="app.langSelection == 2">୧୧.୧. କୋଭିଡ- ୧୯ ବିଷୟରେ କୌଣସି ତାଲିମ ଗ୍ରହଣ କରିଛନ୍ତି କି ?
+          <span style="color:red; font-weight:500;">*</span>
+      </label>
+      <mat-radio-group formControlName="trained" [(ngModel)]="regForm.trained">
+        <mat-radio-button *ngFor="let opt of allOptions['YesNo Type']" [checked]="opt.slugId == regForm.trained" [value]="opt" class="pr-2">
+          {{opt.name}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <div *ngIf="sdrcForm.controls['trained']?.errors?.required && (sdrcForm.controls['trained']?.touched || f.submitted)" class="ng-tns-c4-7 ng-trigger ng-trigger-transitionMessages ng-star-inserted errormssgeront lineheight">
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['trained']?.errors?.pattern ? 'pattern':'Please choose one option'}}
+        </mat-error>
+      </div>
+      <div *ngIf="regForm.trained && regForm.trained.slugId == 121" class="suggest-training">
+        <p>You may register for training available at the link
+          <a href="https://diksha.gov.in/igot/explore-course" target="_blank">https://diksha.gov.in/igot/explore-course</a>
+        </p>
+      </div>
+    </div>
+    <div class="selection-fields col-md-12" [ngClass]="{'dnone': regForm.trained?.slugId!= 120}">
+      <div class="sub-questions row">
+
+        <div class="subq col-md-6">
+          <label for="usr"> Name of training
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <input matInput name="trainingName" trimActive [form]="sdrcForm" formControlName="trainingName" [required]="regForm.trained?.slugId== 120">
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['trainingName']?.errors?.pattern ? 'pattern':'Please provide training name'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr">Duration of training in days
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <input matInput onlyNumber name="trainingDuration" formControlName="trainingDuration" [required]="regForm.trained?.slugId== 120">
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['trainingDuration']?.errors?.pattern ? 'pattern':'Please provide training Duration'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr"> Organization
+            <span style="color:red; font-weight:500;">*</span> :</label>
+          <mat-form-field>
+            <input matInput name="trainingOrganization" trimActive [form]="sdrcForm" formControlName="trainingOrganization" [required]="regForm.trained?.slugId== 120">
+            <mat-error class="padding-bottom ">
+              {{sdrcForm['controls']['trainingOrganization']?.errors?.pattern ? 'pattern':'Please provide organization name'}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="selection-fields col-md-6">
+      <label for="usr" class="radio-label label-heads" *ngIf="app.langSelection == 1">12. How soon are you available to volunteer?
+        <span style="color:red; font-weight:500;">*</span>
+      </label>
+      <label for="usr" class="radio-label label-heads" *ngIf="app.langSelection == 2">୧୨.  ସ୍ୱେଚ୍ଛାସେବୀ ଭାବରେ ଆପଣ କେତେଶୀଘ୍ର ଯୋଗଦାନ କରିପାରିବେ ?
+          <span style="color:red; font-weight:500;">*</span>
+      </label>
+      <mat-radio-group formControlName="availability" [(ngModel)]="dropdownOptionsMap.availability">
+        <mat-radio-button *ngFor="let opt of allOptions.Availability" [checked]="opt.slugId== dropdownOptionsMap.availability" [value]="opt.slugId"
+          class="pr-2">
+          {{opt.name}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <div *ngIf="sdrcForm.controls['availability']?.errors?.required && (sdrcForm.controls['availability']?.touched || f.submitted)"
+        class="ng-tns-c4-7 ng-trigger ng-trigger-transitionMessages ng-star-inserted errormssgeront lineheight">
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['availability']?.errors?.pattern ? 'pattern':'Please choose one option'}}
+        </mat-error>
+      </div>
+    </div>
+    <div class="selection-fields col-md-6">
+      <label for="usr" class="radio-label label-heads" *ngIf="app.langSelection == 1">13. How you want to volunteer?
+        <span style="color:red; font-weight:500;">*</span>
+      </label>
+      <label for="usr" class="radio-label label-heads" *ngIf="app.langSelection == 2">୧୩. ଆପଣ କିପରି ଭାବରେ ସ୍ଵେଛା ସେବା ପ୍ରଦାନ କରିବାକୁ  ଚାହୁଁଛନ୍ତି?
+          <span style="color:red; font-weight:500;">*</span>
+      </label>
+      <mat-radio-group formControlName="howVolunteer" [(ngModel)]="dropdownOptionsMap.howVolunteer">
+        <mat-radio-button *ngFor="let opt of allOptions['Volunteer Type']" [checked]="opt.slugId == dropdownOptionsMap.availability"
+          [value]="opt.slugId" class="pr-2">
+          {{opt.name}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <div *ngIf="sdrcForm.controls['howVolunteer']?.errors?.required && (sdrcForm.controls['howVolunteer']?.touched || f.submitted)"
+        class="ng-tns-c4-7 ng-trigger ng-trigger-transitionMessages ng-star-inserted errormssgeront lineheight">
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['howVolunteer']?.errors?.pattern ? 'pattern':'Please choose one option'}}
+        </mat-error>
+      </div>
+    </div>
+    <div class="selection-fields col-md-6">
+      <label for="usr" class="radio-label label-heads" *ngIf="app.langSelection == 1">14. How much time in a day can you volunteer?
+        <span style="color:red; font-weight:500;">*</span>
+      </label>
+      <label for="usr" class="radio-label label-heads" *ngIf="app.langSelection == 2">୧୪. ଦିନରେ କେତେ ସମୟ ସେବା ପ୍ରଦାନ କରିପାରିବେ?
+          <span style="color:red; font-weight:500;">*</span>
+      </label>
+      <mat-radio-group formControlName="volunteerTime" [(ngModel)]="dropdownOptionsMap.volunteerTime">
+        <mat-radio-button *ngFor="let opt of allOptions['Volunteer Time']" [checked]="opt.slugId == dropdownOptionsMap.volunteerTime"
+          [value]="opt.slugId" class="pr-2">
+          {{opt.name}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <div *ngIf="sdrcForm.controls['volunteerTime']?.errors?.required && (sdrcForm.controls['volunteerTime']?.touched || f.submitted)"
+        class="ng-tns-c4-7 ng-trigger ng-trigger-transitionMessages ng-star-inserted errormssgeront lineheight">
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['volunteerTime']?.errors?.pattern ? 'pattern':'Please choose one option'}}
+        </mat-error>
+      </div>
+    </div>
+    <div class="selection-fields col-md-6"> </div>
+    <div class="selection-fields col-md-6">
+      <label for="usr" class="label-heads" *ngIf="app.langSelection == 1">15. Please select the volunteer organizations you are part of, if any</label>
+      <label for="usr" class="label-heads" *ngIf="app.langSelection ==2">୧୫. ଆପଣ ଯଦି ନିମ୍ନପ୍ରଦତ୍ତ କୌଣସି ସ୍ଵେଛାସେବୀ ଅନୁଷ୍ଠାନ ସହିତ ଜଡିତ, ତାହା ଉଲ୍ଲେଖ କରନ୍ତୁ</label>
+      <mat-form-field>
+        <mat-select formControlName="volunteerOrganizations" multiple [(ngModel)]="regForm.volunteerOrganizations">
+          <mat-select-trigger>
+            {{regForm.volunteerOrganizations && regForm.volunteerOrganizations.length ? regForm.volunteerOrganizations[0].name : ''}}
+            <span *ngIf="regForm.volunteerOrganizations?.length > 1">
+              (+{{regForm.volunteerOrganizations?.length - 1}} {{regForm.volunteerOrganizations ?.length === 2 ? 'other' : 'others'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let opt of allOptions['Volunteer Organizations']" (click)="opt.slugId == 124 ? sdrcForm['controls']['otherOrganizationName'].setValue(''):''"
+            [value]="opt">
+            {{opt.name}}</mat-option>
+        </mat-select>
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['volunteerOrganizations']?.errors?.pattern ? 'pattern':'Please provide organizations'}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="selection-fields col-md-6"> </div>
+    <div class="selection-fields col-md-6" [ngClass]="{'dnone':!(regForm?.volunteerOrganizations && isIdAvailable(regForm.volunteerOrganizations, 124, 'slugId'))}">
+      <label for="usr" class="label-heads">Organizations' Name (separated with ,)
+        <span style="color:red; font-weight:500;">*</span> :</label>
+      <mat-form-field>
+        <input matInput formControlName="otherOrganizationName" [required]="regForm?.volunteerOrganizations && isIdAvailable(regForm.volunteerOrganizations, 124, 'slugId')"
+          trimActive [form]="sdrcForm" name="otherOrganizationName" [(ngModel)]="regForm.otherOrganizationName">
+        <mat-error class="padding-bottom ">
+          {{sdrcForm['controls']['otherOrganizationName']?.errors?.pattern ? 'pattern':"Please provide other organizations' name"}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="selection-fields col-md-12">
+      <label for="usr" class="label-heads" *ngIf="app.langSelection ==1">16. What category do you want to support?</label>
+      <label for="usr" class="label-heads" *ngIf="app.langSelection ==2">୧୬. ଆପଣ କେଉଁ ବିଭାଗରେ ସହାୟତା ଦେବାକୁ ଇଛୁକ?</label>
+      <div class="sub-questions row">
+        <div class="subq col-md-6">
+          <label for="usr" *ngIf="app.langSelection ==1">16.1. Public awareness and Information</label>
+          <label for="usr" *ngIf="app.langSelection ==2">୧୬.୧. ଜଣ ସଚେତନତା ଓ ତଥ୍ୟ ପ୍ରଦାନ  </label>
+          <mat-form-field>
+            <mat-select formControlName="awareness" multiple [(ngModel)]="regForm.awareness">
+              <mat-select-trigger>
+                {{regForm.awareness && regForm.awareness.length ? regForm.awareness[0].name : ''}}
+                <span *ngIf="regForm.awareness?.length > 1">
+                  (+{{regForm.awareness?.length - 1}} {{regForm.awareness ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let category of allOptions['Public Awareness and Information']" [value]="category">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr" *ngIf="app.langSelection ==1">16.2. On-field support</label>
+          <label for="usr" *ngIf="app.langSelection ==2">୧୬.୨. କ୍ଷେତ୍ର ରେ ସହାୟତା  </label>
+          <mat-form-field>
+            <mat-select formControlName="fieldSupport" multiple [(ngModel)]="regForm.fieldSupport">
+              <mat-select-trigger>
+                {{regForm.fieldSupport && regForm.fieldSupport.length ? regForm.fieldSupport[0].name : ''}}
+                <span *ngIf="regForm.fieldSupport?.length > 1">
+                  (+{{regForm.fieldSupport?.length - 1}} {{regForm.fieldSupport ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let category of allOptions['On-field support']" [value]="category">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr" *ngIf="app.langSelection ==1">16.3. Essential services</label>
+          <label for="usr" *ngIf="app.langSelection ==2">୧୬.୩. ଅତ୍ୟାବଶକୀୟ ସେବା ପ୍ରଦାନ  </label>
+          <mat-form-field>
+            <mat-select formControlName="essentials" multiple [(ngModel)]="regForm.essentials">
+              <mat-select-trigger>
+                {{regForm.essentials && regForm.essentials.length ? regForm.essentials[0].name : ''}}
+                <span *ngIf="regForm.essentials?.length > 1">
+                  (+{{regForm.essentials?.length - 1}} {{regForm.essentials ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let category of allOptions['Essential services']" [value]="category">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr" *ngIf="app.langSelection ==1">16.4. Health</label>
+          <label for="usr" *ngIf="app.langSelection ==2">୧୬.୪. ସ୍ୱାସ୍ଥ୍ୟ  </label>
+          <mat-form-field>
+            <mat-select formControlName="health" multiple [(ngModel)]="regForm.health">
+              <mat-select-trigger>
+                {{regForm.health && regForm.health.length ? regForm.health[0].name : ''}}
+                <span *ngIf="regForm.health?.length > 1">
+                  (+{{regForm.health?.length - 1}} {{regForm.health ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let category of allOptions['Health']" [value]="category">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="subq col-md-6">
+          <label for="usr" *ngIf="app.langSelection ==1">16.5. Relief Camp Management</label>
+          <label for="usr" *ngIf="app.langSelection ==2">୧୬.୫. ରିଲିଫ କ୍ୟାମ୍ପ ପରିଚାଳନା </label>
+          <mat-form-field>
+            <mat-select formControlName="reliefCampMgmt" multiple [(ngModel)]="regForm.reliefCampMgmt">
+              <mat-select-trigger>
+                {{regForm.reliefCampMgmt && regForm.reliefCampMgmt.length ? regForm.reliefCampMgmt[0].name : ''}}
+                <span *ngIf="regForm.reliefCampMgmt?.length > 1">
+                  (+{{regForm.reliefCampMgmt?.length - 1}} {{regForm.reliefCampMgmt ?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let category of allOptions['Relief Camp Management']" [value]="category">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-12 mt-btn text-center">
+      <button class="btn btn-default proceed-btn user-submit" [disabled]="!vrService.termAgree" type="submit">{{app.langSelection ==1? 'Submit': 'ଦାଖଲ କରନ୍ତୁ'}}</button>
+    </div>
+  </form>
+</div>
